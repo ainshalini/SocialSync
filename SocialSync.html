@@ -100,6 +100,7 @@
         top: 0;
         width: 100%;
         padding: 20px;
+        font-family: 'Times New Roman', Times, serif;
       }
       
       .no-print {
@@ -112,29 +113,124 @@
       
       .print-section {
         page-break-inside: avoid;
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
+        margin-bottom: 25px;
+        padding: 20px;
+        border: 1px solid #cbd5e1;
+        border-radius: 0;
+        background: white;
       }
       
       .print-header {
         text-align: center;
         margin-bottom: 30px;
         padding-bottom: 20px;
-        border-bottom: 2px solid #3b82f6;
+        border-bottom: 2px solid #1e40af;
       }
       
       .print-title {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: bold;
         color: #1e40af;
-        margin: 0;
+        margin: 10px 0 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
       
       .print-subtitle {
         color: #64748b;
-        margin-top: 4px;
+        margin: 0 0 15px;
+        font-size: 14px;
+      }
+      
+      .print-field {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+      
+      .print-field:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      
+      .print-label {
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+      
+      .print-value {
+        color: #334155;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      
+      .print-checklist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 8px;
+      }
+      
+      .print-checklist-item {
+        flex: 1 1 45%;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .print-checkbox {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #94a3b8;
+        display: inline-block;
+        position: relative;
+      }
+      
+      .print-checkbox.checked::after {
+        content: "✓";
+        position: absolute;
+        top: -2px;
+        left: 2px;
+        color: #1e40af;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      
+      .print-metrics {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      
+      .print-metrics th,
+      .print-metrics td {
+        padding: 8px 10px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      
+      .print-metrics th {
+        background: #f8fafc;
+        font-weight: bold;
+        color: #1e293b;
+        width: 50%;
+      }
+      
+      .print-metrics td {
+        color: #334155;
+      }
+      
+      .print-footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #cbd5e1;
+        text-align: center;
+        color: #64748b;
+        font-size: 11px;
       }
     }
   </style>
@@ -152,7 +248,7 @@
           </div>
           <div>
             <h1 id="app-title" class="title-font text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">SocialSync</h1>
-            <p id="app-tagline" class="text-xs text-slate-600">Event &amp; Programme Management System</p>
+            <p id="app-tagline" class="text-xs text-slate-600">Event & Programme Management System</p>
           </div>
         </div>
         <div class="flex items-center gap-4">
@@ -180,8 +276,27 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-auto scroll-container p-6">
       <div class="max-w-6xl mx-auto">
+        <!-- Section Selection -->
+        <div class="bg-white rounded-xl p-6 mb-6 border border-slate-200">
+          <h2 class="title-font text-lg font-semibold text-cyan-600 mb-4">Select Report Type</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-1">
+              <div class="font-semibold text-slate-700">IP2M1:1</div>
+              <div class="text-sm text-slate-600">Programme Details</div>
+            </button>
+            <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-2">
+              <div class="font-semibold text-slate-700">IP2M1:2</div>
+              <div class="text-sm text-slate-600">Performance Metrics</div>
+            </button>
+            <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip3m2">
+              <div class="font-semibold text-slate-700">IP3M2</div>
+              <div class="text-sm text-slate-600">Economic & Media Analysis</div>
+            </button>
+          </div>
+        </div>
+
         <!-- Form Container -->
-        <form id="main-form" class="card-gradient rounded-2xl border border-slate-200 shadow-xl">
+        <form id="main-form" class="card-gradient rounded-2xl border border-slate-200 shadow-xl hidden">
           <!-- Programme Info Section -->
           <div class="p-6 border-b border-slate-200">
             <h2 class="title-font text-lg font-semibold text-cyan-600 mb-4 flex items-center gap-2">
@@ -206,10 +321,10 @@
             </div>
           </div>
 
-          <!-- Combined Form Sections -->
-          <div class="space-y-4 p-6">
+          <!-- Sections Container -->
+          <div id="sections-container" class="space-y-4 p-6">
             <!-- IP2M1:1 Section -->
-            <div id="section-ip2m1-1" class="bg-white rounded-xl border border-blue-200 overflow-hidden">
+            <div id="section-ip2m1-1" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
               <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
                 <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
                   <span class="flex items-center gap-2">
@@ -269,11 +384,33 @@
                     <textarea id="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event"></textarea>
                   </div>
                 </div>
+
+                <!-- Gambar Program -->
+                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+                  <h4 class="text-md font-semibold text-blue-700 mb-4">Gambar Program / Tangkap Layar Media</h4>
+                  <p class="text-sm text-slate-600 mb-3">Muat naik gambar aktiviti program atau tangkapan skrin liputan media.</p>
+                  <div class="flex flex-col gap-3">
+                    <label for="ip2m1-1-images" class="block text-sm text-slate-700">
+                      Pilih satu atau lebih fail gambar (JPEG, PNG)
+                    </label>
+                    <input 
+                      type="file" 
+                      id="ip2m1-1-images" 
+                      class="w-full px-4 py-2 rounded-lg input-style text-slate-800"
+                      accept="image/jpeg,image/png,image/jpg"
+                      multiple
+                    >
+                    <div id="ip2m1-1-image-preview" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-2">
+                    Sokongan: JPG, PNG. Saiz maksimum disyorkan: 5MB setiap fail.
+                  </p>
+                </div>
               </div>
             </div>
 
             <!-- IP2M1:2 Section -->
-            <div id="section-ip2m1-2" class="bg-white rounded-xl border border-blue-200 overflow-hidden">
+            <div id="section-ip2m1-2" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
               <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
                 <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
                   <span class="flex items-center gap-2">
@@ -402,12 +539,51 @@
                       <span class="text-slate-700 group-hover:text-slate-900 transition-colors">Laporan Maklum Balas dari Survey Management System (SMS)</span>
                     </label>
                   </div>
+                  
+                  <!-- PDF Upload -->
+                  <div class="mt-4 pt-4 border-t border-cyan-200">
+                    <label for="supporting-docs-pdf" class="block text-sm font-medium text-slate-700 mb-2">
+                      Upload Supporting Documents (PDF)
+                    </label>
+                    <input 
+                      type="file" 
+                      id="supporting-docs-pdf" 
+                      class="w-full px-4 py-2 rounded-lg input-style text-slate-800"
+                      accept=".pdf"
+                      multiple
+                    >
+                    <p class="text-xs text-slate-500 mt-1">
+                      Upload PDF files for supporting documents (max 10MB each)
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Gambar Program -->
+                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+                  <h4 class="text-md font-semibold text-blue-700 mb-4">Gambar Program / Tangkap Layar Media</h4>
+                  <p class="text-sm text-slate-600 mb-3">Muat naik gambar aktiviti program atau tangkapan skrin liputan media.</p>
+                  <div class="flex flex-col gap-3">
+                    <label for="ip2m1-2-images" class="block text-sm text-slate-700">
+                      Pilih satu atau lebih fail gambar (JPEG, PNG)
+                    </label>
+                    <input 
+                      type="file" 
+                      id="ip2m1-2-images" 
+                      class="w-full px-4 py-2 rounded-lg input-style text-slate-800"
+                      accept="image/jpeg,image/png,image/jpg"
+                      multiple
+                    >
+                    <div id="ip2m1-2-image-preview" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-2">
+                    Sokongan: JPG, PNG. Saiz maksimum disyorkan: 5MB setiap fail.
+                  </p>
                 </div>
               </div>
             </div>
 
             <!-- IP3M2 Section -->
-            <div id="section-ip3m2" class="bg-white rounded-xl border border-blue-200 overflow-hidden">
+            <div id="section-ip3m2" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
               <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
                 <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
                   <span class="flex items-center gap-2">
@@ -422,7 +598,7 @@
               <div class="p-5 space-y-6">
                 <!-- Promotion & Outreach -->
                 <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Promotion &amp; Outreach (Media Coverage)</h4>
+                  <h4 class="text-md font-semibold text-blue-700 mb-4">Promotion & Outreach (Media Coverage)</h4>
                   <div class="space-y-4">
                     <div>
                       <label for="ip3-media-list" class="block text-sm text-slate-700 mb-1">List of Media</label>
@@ -435,17 +611,17 @@
                   </div>
                 </div>
 
-                <!-- Participation -->
+                <!-- Participation (FIXED ORDER) -->
                 <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
                   <h4 class="text-md font-semibold text-blue-700 mb-4">Participation</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label for="ip3-target-attendance" class="block text-sm text-slate-700 mb-1">Target Attendance</label>
-                      <input type="number" id="ip3-target-attendance" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                    </div>
-                    <div>
                       <label for="ip3-actual-attendance" class="block text-sm text-slate-700 mb-1">Actual Attendance</label>
                       <input type="number" id="ip3-actual-attendance" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
+                    </div>
+                    <div>
+                      <label for="ip3-target-attendance" class="block text-sm text-slate-700 mb-1">Target Attendance</label>
+                      <input type="number" id="ip3-target-attendance" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
                     </div>
                   </div>
                   <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
@@ -497,22 +673,20 @@
                   <h4 class="text-md font-semibold text-blue-700 mb-4">Gambar Program / Tangkap Layar Media</h4>
                   <p class="text-sm text-slate-600 mb-3">Muat naik gambar aktiviti program atau tangkapan skrin liputan media.</p>
                   <div class="flex flex-col gap-3">
-                    <label for="program-images" class="block text-sm text-slate-700">
+                    <label for="ip3m2-images" class="block text-sm text-slate-700">
                       Pilih satu atau lebih fail gambar (JPEG, PNG)
                     </label>
                     <input 
                       type="file" 
-                      id="program-images" 
+                      id="ip3m2-images" 
                       class="w-full px-4 py-2 rounded-lg input-style text-slate-800"
                       accept="image/jpeg,image/png,image/jpg"
                       multiple
                     >
-                    <div id="image-preview" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+                    <div id="ip3m2-image-preview" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
                   </div>
                   <p class="text-xs text-slate-500 mt-2">
                     Sokongan: JPG, PNG. Saiz maksimum disyorkan: 5MB setiap fail.
-                    <br>
-                    <strong>Anda boleh memilih beberapa gambar sekaligus.</strong>
                   </p>
                 </div>
               </div>
@@ -525,7 +699,7 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>Submit All Reports</span>
+              <span>Submit Report</span>
             </button>
           </div>
         </form>
@@ -542,15 +716,15 @@
       </div>
       <div class="p-6 space-y-4">
         <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip2m1-1" class="w-5 h-5 rounded checkbox-custom" checked>
+          <input type="checkbox" id="print-ip2m1-1" class="w-5 h-5 rounded checkbox-custom">
           <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP2M1:1 - Programme Details</span>
         </label>
         <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip2m1-2" class="w-5 h-5 rounded checkbox-custom" checked>
+          <input type="checkbox" id="print-ip2m1-2" class="w-5 h-5 rounded checkbox-custom">
           <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP2M1:2 - Performance Metrics</span>
         </label>
         <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip3m2" class="w-5 h-5 rounded checkbox-custom" checked>
+          <input type="checkbox" id="print-ip3m2" class="w-5 h-5 rounded checkbox-custom">
           <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP3M2 - Economic & Media Analysis</span>
         </label>
       </div>
@@ -602,8 +776,8 @@
       const mediaCount = mediaList ? mediaList.split(/\r?\n/).filter(line => line.trim() !== '').length : 0;
       document.getElementById('ip3-media-percent').textContent = (mediaCount >= 3 ? 100 : 0) + '%';
 
-      const ip3Target = num(document.getElementById('ip3-target-attendance').value);
       const ip3Actual = num(document.getElementById('ip3-actual-attendance').value);
+      const ip3Target = num(document.getElementById('ip3-target-attendance').value);
       const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100) : 0;
       document.getElementById('ip3-participation-percent').textContent = ip3Participation.toFixed(1) + '%';
 
@@ -636,7 +810,7 @@
     // Fetch record count from Google Sheet
     async function fetchRecordCount() {
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbyq8A92Vyrfq6mKAdPUXmnVI7EwL1K3_GKvOO1KJqtlPDhBxUkmhH6xLUxTxHKA1ly_xw/exec?count=1');
+        const response = await fetch('YOUR_WEB_APP_URL?count=1');
         const data = await response.json();
         document.getElementById('record-count').textContent = `${data.count} Records`;
       } catch (error) {
@@ -665,90 +839,117 @@
       btn.innerHTML = '<span>Saving...</span>';
 
       try {
+        // Get selected section
+        const selectedSection = document.querySelector('.section-btn.border-cyan-400')?.dataset.section;
+        if (!selectedSection) {
+          alert('❌ Please select a report type.');
+          return;
+        }
+
         // Combine selected media channels with examples
         const selectedMedia = [];
-        if (document.getElementById('media-cetak-checkbox').checked) {
-          const example = document.getElementById('media-cetak-example').value.trim();
+        if (document.getElementById('media-cetak-checkbox')?.checked) {
+          const example = document.getElementById('media-cetak-example')?.value.trim();
           selectedMedia.push(`Media Cetak (Print Media): ${example || 'N/A'}`);
         }
-        if (document.getElementById('media-elektronik-checkbox').checked) {
-          const example = document.getElementById('media-elektronik-example').value.trim();
+        if (document.getElementById('media-elektronik-checkbox')?.checked) {
+          const example = document.getElementById('media-elektronik-example')?.value.trim();
           selectedMedia.push(`Media Elektronik (Electronic Media): ${example || 'N/A'}`);
         }
-        if (document.getElementById('media-digital-checkbox').checked) {
-          const example = document.getElementById('media-digital-example').value.trim();
+        if (document.getElementById('media-digital-checkbox')?.checked) {
+          const example = document.getElementById('media-digital-example')?.value.trim();
           selectedMedia.push(`Media Digital (Digital Media): ${example || 'N/A'}`);
         }
         const selectedMediaText = selectedMedia.join(', ');
 
         // Combine selected supporting docs
         const selectedDocs = [
-          document.getElementById('doc-kertas-kerja').checked ? 'Kertas kerja program / slide pembentangan' : '',
-          document.getElementById('doc-surat-mesyuarat').checked ? 'Surat mesyuarat penyelarasan / jemputan program' : '',
-          document.getElementById('doc-laporan-kpi').checked ? 'Laporan selepas program - borang KPI IP2M1-1' : '',
-          document.getElementById('doc-gambar').checked ? 'Gambar program / tangkap layar media' : '',
-          document.getElementById('doc-laporan-sms').checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
+          document.getElementById('doc-kertas-kerja')?.checked ? 'Kertas kerja program / slide pembentangan' : '',
+          document.getElementById('doc-surat-mesyuarat')?.checked ? 'Surat mesyuarat penyelarasan / jemputan program' : '',
+          document.getElementById('doc-laporan-kpi')?.checked ? 'Laporan selepas program - borang KPI IP2M1-1' : '',
+          document.getElementById('doc-gambar')?.checked ? 'Gambar program / tangkap layar media' : '',
+          document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
         ].filter(Boolean).join(', ');
 
         const formData = {
           programme_name: document.getElementById('programme').value,
           programme_date: document.getElementById('date').value,
           organizer: document.getElementById('organizer').value,
-          ip2m1_category: document.getElementById('ip1-category').value || '',
-          venue_capacity: document.getElementById('ip1-tempat').value,
-          description: document.getElementById('ip1-deskripsi').value,
-          objective: document.getElementById('ip1-objektif').value,
-          impact: document.getElementById('ip1-impak').value,
-          vip_guest: document.getElementById('ip1-tetamu').value,
-          total_attendance: document.getElementById('ip1-bil-tetamu').value,
-          media_present: document.getElementById('ip1-pihak-media').value || '',
+          ip2m1_category: document.getElementById('ip1-category')?.value || '',
+          venue_capacity: document.getElementById('ip1-tempat')?.value || '',
+          description: document.getElementById('ip1-deskripsi')?.value || '',
+          objective: document.getElementById('ip1-objektif')?.value || '',
+          impact: document.getElementById('ip1-impak')?.value || '',
+          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
+          total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
+          media_present: document.getElementById('ip1-pihak-media')?.value || '',
 
           selected_media_channels: selectedMediaText,
-          media_coverage_percent: parseFloat(document.getElementById('media-coverage').textContent) || 0,
+          media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
 
-          crowd_size: document.getElementById('crowd-size').value,
-          target_group: document.getElementById('target-group').value,
-          survey_participation_percent: parseFloat(document.getElementById('survey-percent-display').textContent) || 0,
-          total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2').textContent) || 0,
+          crowd_size: document.getElementById('crowd-size')?.value || 0,
+          target_group: document.getElementById('target-group')?.value || 0,
+          survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
+          total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
 
           selected_supporting_docs: selectedDocs,
 
-          ip3_media_list: document.getElementById('ip3-media-list').value,
-          ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent').textContent) || 0,
-          ip3_target_attendance: document.getElementById('ip3-target-attendance').value,
-          ip3_actual_attendance: document.getElementById('ip3-actual-attendance').value,
-          ip3_participation_percent: parseFloat(document.getElementById('ip3-participation-percent').textContent) || 0,
-          ip3_total_respondent: document.getElementById('ip3-total-respondent').value,
-          ip3_positive_respondent: document.getElementById('ip3-positive-respondent').value,
-          ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent').textContent) || 0,
-          revenue_rm: document.getElementById('ip3-revenue').value,
-          modal_rm: document.getElementById('ip3-modal').value,
-          roi_percent: parseFloat(document.getElementById('ip3-roi-percent').textContent) || 0
+          ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
+          ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
+          ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
+          ip3_target_attendance: document.getElementById('ip3-target-attendance')?.value || 0,
+          ip3_participation_percent: parseFloat(document.getElementById('ip3-participation-percent')?.textContent) || 0,
+          ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
+          ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
+          ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
+          revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
+          modal_rm: document.getElementById('ip3-modal')?.value || 0,
+          roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
         };
 
-        const imageFiles = document.getElementById('program-images').files;
+        // Process images based on selected section
+        const imageFiles = {
+          'ip2m1-1': document.getElementById('ip2m1-1-images')?.files || [],
+          'ip2m1-2': document.getElementById('ip2m1-2-images')?.files || [],
+          'ip3m2': document.getElementById('ip3m2-images')?.files || []
+        };
+        
         const images = [];
-        for (let i = 0; i < imageFiles.length; i++) {
-          images.push(await fileToBase64(imageFiles[i]));
+        const selectedImages = imageFiles[selectedSection] || [];
+        for (let i = 0; i < selectedImages.length; i++) {
+          images.push(await fileToBase64(selectedImages[i]));
         }
 
-        // 🔥 FIXED WEB APP URL - NO TRAILING SPACES!
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyq8A92Vyrfq6mKAdPUXmnVI7EwL1K3_GKvOO1KJqtlPDhBxUkmhH6xLUxTxHKA1ly_xw/exec';
+        // Process PDFs (only for IP2M1:2)
+        const pdfs = [];
+        if (selectedSection === 'ip2m1-2') {
+          const pdfFiles = document.getElementById('supporting-docs-pdf')?.files || [];
+          for (let i = 0; i < pdfFiles.length; i++) {
+            pdfs.push(await fileToBase64(pdfFiles[i]));
+          }
+        }
+
+        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx4-PB4DPGdEMLy1HdpR4dhBpw8551vQlGUjNMgzYCz_f4Yuveyc6eeo5ujh9VCjS9y4g/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ formData, images })
+          body: JSON.stringify({ formData, images, pdfs })
         });
 
         setTimeout(() => {
           alert('✅ Maklumat Berjaya Disimpan.');
           document.getElementById('main-form').reset();
-          document.getElementById('image-preview').innerHTML = '';
+          // Clear image previews
+          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+          if (selectedSection === 'ip2m1-2') {
+            document.getElementById('supporting-docs-pdf').value = '';
+          }
           updateIP2M1_2();
           updateIP3M2();
-          fetchRecordCount(); // 👈 REFRESH RECORD COUNT
+          fetchRecordCount();
         }, 500);
       } catch (err) {
         console.error(err);
@@ -757,6 +958,65 @@
         btn.disabled = false;
         btn.innerHTML = originalHTML;
       }
+    }
+
+    // Section selection
+    function setupSectionSelection() {
+      const sectionBtns = document.querySelectorAll('.section-btn');
+      const form = document.getElementById('main-form');
+      const sections = {
+        'ip2m1-1': document.getElementById('section-ip2m1-1'),
+        'ip2m1-2': document.getElementById('section-ip2m1-2'),
+        'ip3m2': document.getElementById('section-ip3m2')
+      };
+
+      sectionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active state from all buttons
+          sectionBtns.forEach(b => b.classList.remove('border-cyan-400', 'bg-cyan-50'));
+          
+          // Add active state to clicked button
+          btn.classList.add('border-cyan-400', 'bg-cyan-50');
+          
+          // Show form and selected section
+          form.classList.remove('hidden');
+          Object.values(sections).forEach(section => section.classList.add('hidden'));
+          const sectionId = btn.dataset.section;
+          if (sections[sectionId]) {
+            sections[sectionId].classList.remove('hidden');
+          }
+        });
+      });
+    }
+
+    // Image preview
+    function setupImagePreview() {
+      const imageInputs = [
+        { input: 'ip2m1-1-images', preview: 'ip2m1-1-image-preview' },
+        { input: 'ip2m1-2-images', preview: 'ip2m1-2-image-preview' },
+        { input: 'ip3m2-images', preview: 'ip3m2-image-preview' }
+      ];
+
+      imageInputs.forEach(({ input, preview }) => {
+        const inputEl = document.getElementById(input);
+        if (inputEl) {
+          inputEl.addEventListener('change', (e) => {
+            const previewEl = document.getElementById(preview);
+            previewEl.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+              if (!file.type.match('image.*')) return;
+              const reader = new FileReader();
+              reader.onload = ev => {
+                const img = document.createElement('img');
+                img.src = ev.target.result;
+                img.className = 'w-full h-24 object-cover rounded-lg border border-slate-200';
+                previewEl.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+            });
+          });
+        }
+      });
     }
 
     // Print functionality
@@ -798,32 +1058,126 @@
         
         printContent.innerHTML = `
           <div class="print-header">
-            <h1 class="print-title">SocialSync Report</h1>
+            <h1 class="print-title">SocialSync Official Report</h1>
             <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
           </div>
         `;
 
-        // Add selected sections
+        // Function to create Q&A field
+        function createQAField(question, answer) {
+          if (!answer) return '';
+          return `
+            <div class="print-field">
+              <div class="print-label">${question}</div>
+              <div class="print-value">${answer}</div>
+            </div>
+          `;
+        }
+
+        // Function to create checklist
+        function createChecklist(items) {
+          if (!items || items.length === 0) return '';
+          let html = '<div class="print-checklist">';
+          items.forEach(item => {
+            html += `<div class="print-checklist-item"><div class="print-checkbox checked"></div><div class="print-value">${item}</div></div>`;
+          });
+          html += '</div>';
+          return html;
+        }
+
+        // Add IP2M1:1 section
         if (ip2m1_1) {
-          const section1 = document.querySelector('#section-ip2m1-1').cloneNode(true);
-          section1.classList.add('print-section');
-          section1.querySelectorAll('button, input, textarea, select, label[for]').forEach(el => el.remove());
+          const section1 = document.createElement('div');
+          section1.className = 'print-section';
+          section1.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP2M1:1 - Programme Details</h2>
+              <div class="print-section-subtitle">Community Engagement Report</div>
+            </div>
+            ${createQAField('Perkara/Kategori', document.getElementById('ip1-category').options[document.getElementById('ip1-category').selectedIndex]?.text || '')}
+            ${createQAField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
+            ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
+            ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
+            ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
+            ${createQAField('Tetamu Kehormat', document.getElementById('ip1-tetamu').value)}
+            ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
+            ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
+          `;
           printContent.appendChild(section1);
         }
         
+        // Add IP2M1:2 section
         if (ip2m1_2) {
-          const section2 = document.querySelector('#section-ip2m1-2').cloneNode(true);
-          section2.classList.add('print-section');
-          section2.querySelectorAll('button, input, textarea, select, label[for]').forEach(el => el.remove());
+          const section2 = document.createElement('div');
+          section2.className = 'print-section';
+          
+          // Media channels
+          let mediaItems = [];
+          if (document.getElementById('media-cetak-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-cetak-example').value || 'Media Cetak (Print Media)');
+          }
+          if (document.getElementById('media-elektronik-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-elektronik-example').value || 'Media Elektronik (Electronic Media)');
+          }
+          if (document.getElementById('media-digital-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-digital-example').value || 'Media Digital (Digital Media)');
+          }
+          
+          // Supporting documents
+          let docItems = [];
+          if (document.getElementById('doc-kertas-kerja').checked) docItems.push('Kertas kerja program / slide pembentangan');
+          if (document.getElementById('doc-surat-mesyuarat').checked) docItems.push('Surat mesyuarat penyelarasan / jemputan program');
+          if (document.getElementById('doc-laporan-kpi').checked) docItems.push('Laporan selepas program - borang KPI IP2M1-1');
+          if (document.getElementById('doc-gambar').checked) docItems.push('Gambar program / tangkap layar media');
+          if (document.getElementById('doc-laporan-sms').checked) docItems.push('Laporan Maklum Balas dari Survey Management System (SMS)');
+          
+          section2.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP2M1:2 - Performance Metrics</h2>
+              <div class="print-section-subtitle">Performance & Feedback Analysis</div>
+            </div>
+            ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
+            ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
+            ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
+            ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
+            ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
+            ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
+            ${createQAField('Total Score', document.getElementById('total-ip2m1-2').textContent + '%')}
+            ${createQAField('Supporting Documents', docItems.join(', '))}
+          `;
           printContent.appendChild(section2);
         }
         
+        // Add IP3M2 section
         if (ip3m2) {
-          const section3 = document.querySelector('#section-ip3m2').cloneNode(true);
-          section3.classList.add('print-section');
-          section3.querySelectorAll('button, input, textarea, select, label[for]').forEach(el => el.remove());
+          const section3 = document.createElement('div');
+          section3.className = 'print-section';
+          section3.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP3M2 - Economic & Media Analysis</h2>
+              <div class="print-section-subtitle">Economic Impact & ROI</div>
+            </div>
+            ${createQAField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
+            ${createQAField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
+            ${createQAField('Actual Attendance', document.getElementById('ip3-actual-attendance').value)}
+            ${createQAField('Target Attendance', document.getElementById('ip3-target-attendance').value)}
+            ${createQAField('Participation Mark', document.getElementById('ip3-participation-percent').textContent)}
+            ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
+            ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
+            ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
+            ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
+            ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
+            ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
+          `;
           printContent.appendChild(section3);
         }
+        
+        // Add footer
+        printContent.innerHTML += `
+          <div class="print-footer">
+            SocialSync Programme Management System • Official Government Document • Confidential
+          </div>
+        `;
 
         // Temporarily add to body
         document.body.appendChild(printContent);
@@ -849,38 +1203,36 @@
     // Setup
     document.addEventListener('DOMContentLoaded', () => {
       // Enable media example fields when checked
-      document.getElementById('media-cetak-checkbox').addEventListener('change', (e) => {
-        document.getElementById('media-cetak-example').disabled = !e.target.checked;
-      });
-      document.getElementById('media-elektronik-checkbox').addEventListener('change', (e) => {
-        document.getElementById('media-elektronik-example').disabled = !e.target.checked;
-      });
-      document.getElementById('media-digital-checkbox').addEventListener('change', (e) => {
-        document.getElementById('media-digital-example').disabled = !e.target.checked;
+      ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', (e) => {
+            const exampleId = id.replace('-checkbox', '-example');
+            const exampleEl = document.getElementById(exampleId);
+            if (exampleEl) {
+              exampleEl.disabled = !e.target.checked;
+            }
+          });
+        }
       });
 
       // Attach calculation listeners
       ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
-        .forEach(id => document.getElementById(id)?.addEventListener('input', updateIP2M1_2));
-      ['ip3-media-list', 'ip3-target-attendance', 'ip3-actual-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
-        .forEach(id => document.getElementById(id)?.addEventListener('input', updateIP3M2));
-
-      // Image preview
-      document.getElementById('program-images')?.addEventListener('change', (e) => {
-        const preview = document.getElementById('image-preview');
-        preview.innerHTML = '';
-        Array.from(e.target.files).forEach(file => {
-          if (!file.type.match('image.*')) return;
-          const reader = new FileReader();
-          reader.onload = ev => {
-            const img = document.createElement('img');
-            img.src = ev.target.result;
-            img.className = 'w-full h-24 object-cover rounded-lg border border-slate-200';
-            preview.appendChild(img);
-          };
-          reader.readAsDataURL(file);
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP2M1_2);
         });
-      });
+      ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP3M2);
+        });
+
+      // Setup section selection
+      setupSectionSelection();
+
+      // Setup image preview
+      setupImagePreview();
 
       // Handle form submission
       document.getElementById('main-form').addEventListener('submit', submitForm);
