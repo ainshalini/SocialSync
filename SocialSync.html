@@ -281,7 +281,7 @@
           <h2 class="title-font text-lg font-semibold text-cyan-600 mb-4">Select Report Type</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-1">
-              <div class="font-semibold text-slate-700">IP2M1:1</div>
+              <div class="font-semibold text-slate-700">BULETIN DAERAH</div>
               <div class="text-sm text-slate-600">Programme Details</div>
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-2">
@@ -323,7 +323,7 @@
 
           <!-- Sections Container -->
           <div id="sections-container" class="space-y-4 p-6">
-            <!-- IP2M1:1 Section -->
+            <!-- BULETIN DAERAH Section -->
             <div id="section-ip2m1-1" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
               <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
                 <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
@@ -331,21 +331,26 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    IP2M1:1 - Programme Details
+                    BULETIN DAERAH
                   </span>
                   <span class="text-sm font-normal text-blue-600">Community Engagement Report</span>
                 </h3>
               </div>
               <div class="p-5 space-y-4">
-                <!-- DROPDOWN FOR CATEGORY -->
+                <!-- DAERAH Dropdown -->
                 <div>
-                  <h4 class="text-sm font-semibold text-blue-600 mb-3">Perkara/Kategori</h4>
-                  <select id="ip1-category" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
-                    <option value="">-- Select Category --</option>
-                    <option value="g2g">Government to Government strategic engagement</option>
-                    <option value="g2r">Government to Rakyat strategic engagement</option>
-                    <option value="g2b">Government to Business Community strategic engagement</option>
-                    <option value="community">Community-centric programs/activities</option>
+                  <h4 class="text-sm font-semibold text-blue-600 mb-3">Pilih Daerah</h4>
+                  <select id="daerah-dropdown" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
+                    <option value="">-- Pilih Daerah --</option>
+                    <option value="Pejabat Residen Bahagian Mukah">Pejabat Residen Bahagian Mukah</option>
+                    <option value="Pejabat Daerah Mukah">Pejabat Daerah Mukah</option>
+                    <option value="Pejabat Daerah Dalat">Pejabat Daerah Dalat</option>
+                    <option value="Pejabat Daerah Matu">Pejabat Daerah Matu</option>
+                    <option value="Pejabat Daerah Daro">Pejabat Daerah Daro</option>
+                    <option value="Pejabat Daerah Tanjung Manis">Pejabat Daerah Tanjung Manis</option>
+                    <option value="Pejabat Daerah Kecil Balingian">Pejabat Daerah Kecil Balingian</option>
+                    <option value="Pejabat Daerah Kecil Oya">Pejabat Daerah Kecil Oya</option>
+                    <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
                   </select>
                 </div>
 
@@ -717,7 +722,7 @@
       <div class="p-6 space-y-4">
         <label class="flex items-center gap-3 cursor-pointer group">
           <input type="checkbox" id="print-ip2m1-1" class="w-5 h-5 rounded checkbox-custom">
-          <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP2M1:1 - Programme Details</span>
+          <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">BULETIN DAERAH</span>
         </label>
         <label class="flex items-center gap-3 cursor-pointer group">
           <input type="checkbox" id="print-ip2m1-2" class="w-5 h-5 rounded checkbox-custom">
@@ -801,7 +806,7 @@
         reader.readAsDataURL(file);
         reader.onload = () => {
           const base64 = reader.result.split(',')[1];
-          resolve({ name: file.name, mimeType: file.type, data: base64 });
+          resolve({ name: file.name, mimeType: file.type,  base64 });
         };
         reader.onerror = reject;
       });
@@ -875,6 +880,7 @@
           programme_name: document.getElementById('programme').value,
           programme_date: document.getElementById('date').value,
           organizer: document.getElementById('organizer').value,
+          daerah: document.getElementById('daerah-dropdown')?.value || '', // 👈 NEW DAERAH FIELD
           ip2m1_category: document.getElementById('ip1-category')?.value || '',
           venue_capacity: document.getElementById('ip1-tempat')?.value || '',
           description: document.getElementById('ip1-deskripsi')?.value || '',
@@ -930,7 +936,7 @@
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx4-PB4DPGdEMLy1HdpR4dhBpw8551vQlGUjNMgzYCz_f4Yuveyc6eeo5ujh9VCjS9y4g/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw4A_x6NcuAey3VXddMy-X962qXGoeNmV2aksCK8bkMFqnz3n_yIsW7kaAKxnjnPOmKEQ/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
@@ -940,7 +946,7 @@
         });
 
         setTimeout(() => {
-          alert('✅ Maklumat Berjaya Disimpan.');
+          alert('✅ Success! Data saved to Google Sheet & Drive.');
           document.getElementById('main-form').reset();
           // Clear image previews
           document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
@@ -1085,16 +1091,16 @@
           return html;
         }
 
-        // Add IP2M1:1 section
+        // Add BULETIN DAERAH section
         if (ip2m1_1) {
           const section1 = document.createElement('div');
           section1.className = 'print-section';
           section1.innerHTML = `
             <div class="print-section-header">
-              <h2 class="print-section-title">IP2M1:1 - Programme Details</h2>
+              <h2 class="print-section-title">BULETIN DAERAH</h2>
               <div class="print-section-subtitle">Community Engagement Report</div>
             </div>
-            ${createQAField('Perkara/Kategori', document.getElementById('ip1-category').options[document.getElementById('ip1-category').selectedIndex]?.text || '')}
+            ${createQAField('Daerah', document.getElementById('daerah-dropdown').options[document.getElementById('daerah-dropdown').selectedIndex]?.text || '')}
             ${createQAField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
             ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
             ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
@@ -1155,7 +1161,6 @@
           section3.innerHTML = `
             <div class="print-section-header">
               <h2 class="print-section-title">IP3M2 - Economic & Media Analysis</h2>
-              <div class="print-section-subtitle">Economic Impact & ROI</div>
             </div>
             ${createQAField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
             ${createQAField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
