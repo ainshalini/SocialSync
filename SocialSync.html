@@ -936,7 +936,7 @@
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxWfgbRCakbrb-G7QpU6pBZ0Sa9hgnHExImT2izea6iNvpuu69DY3pYdYpSYvmyu714kw/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx-BQlTA_mcJJhcQDT0tZwVNn63Wt-14CDPh4p7CCIr1hTUhB7sZwB7bqBv_t3hKYjX2g/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
@@ -946,7 +946,7 @@
         });
 
         setTimeout(() => {
-          alert('✅ Success! Data saved to Google Sheet & Drive.');
+          alert('✅ Maklumat Telah Disimpan.');
           document.getElementById('main-form').reset();
           // Clear image previews
           document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
