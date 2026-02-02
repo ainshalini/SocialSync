@@ -388,6 +388,7 @@
 
                 <!-- Attendance Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Tetamu Kehormat (Dynamic) -->
                   <div>
                     <label class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
                     <div id="vip-guests-container" class="space-y-2">
@@ -907,7 +908,13 @@
           description: document.getElementById('ip1-deskripsi')?.value || '',
           objective: document.getElementById('ip1-objektif')?.value || '',
           impact: document.getElementById('ip1-impak')?.value || '',
-          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
+          
+          // Collect all Tetamu Kehormat values
+          const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+          const vipGuestValues = Array.from(vipGuestInputs)
+            .map(input => input.value.trim())
+            .filter(value => value !== '');
+          const vipGuestText = vipGuestValues.join(', ');
           total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
           media_present: document.getElementById('ip1-pihak-media')?.value || '',
 
@@ -1280,4 +1287,3 @@
   </script>
 </body>
 </html>
-the button plus for tetamu kehormat didnt works, fix it. give me full new coding
