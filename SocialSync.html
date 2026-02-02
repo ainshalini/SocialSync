@@ -317,23 +317,22 @@
               Programme Information
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="p-5 space-y-4">
-                <!-- DAERAH Dropdown -->
-                <div>
-                  <h4 class="text-sm font-semibold text-blue-600 mb-3">Pilih Daerah</h4>
-                  <select id="daerah-dropdown" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
-                    <option value="">-- Pilih Daerah --</option>
-                    <option value="Pejabat Residen Bahagian Mukah">Pejabat Residen Bahagian Mukah</option>
-                    <option value="Pejabat Daerah Mukah">Pejabat Daerah Mukah</option>
-                    <option value="Pejabat Daerah Dalat">Pejabat Daerah Dalat</option>
-                    <option value="Pejabat Daerah Matu">Pejabat Daerah Matu</option>
-                    <option value="Pejabat Daerah Daro">Pejabat Daerah Daro</option>
-                    <option value="Pejabat Daerah Tanjung Manis">Pejabat Daerah Tanjung Manis</option>
-                    <option value="Pejabat Daerah Kecil Balingian">Pejabat Daerah Kecil Balingian</option>
-                    <option value="Pejabat Daerah Kecil Oya">Pejabat Daerah Kecil Oya</option>
-                    <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
-                  </select>
-                </div>
+              <!-- DAERAH Dropdown -->
+              <div>
+                <label for="daerah-dropdown" class="block text-sm font-medium text-slate-700 mb-1">Daerah *</label>
+                <select id="daerah-dropdown" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" required>
+                  <option value="">-- Pilih Daerah --</option>
+                  <option value="Pejabat Residen Bahagian Mukah">Pejabat Residen Bahagian Mukah</option>
+                  <option value="Pejabat Daerah Mukah">Pejabat Daerah Mukah</option>
+                  <option value="Pejabat Daerah Dalat">Pejabat Daerah Dalat</option>
+                  <option value="Pejabat Daerah Matu">Pejabat Daerah Matu</option>
+                  <option value="Pejabat Daerah Daro">Pejabat Daerah Daro</option>
+                  <option value="Pejabat Daerah Tanjung Manis">Pejabat Daerah Tanjung Manis</option>
+                  <option value="Pejabat Daerah Kecil Balingian">Pejabat Daerah Kecil Balingian</option>
+                  <option value="Pejabat Daerah Kecil Oya">Pejabat Daerah Kecil Oya</option>
+                  <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
+                </select>
+              </div>
 
               <div>
                 <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name *</label>
@@ -341,11 +340,11 @@
               </div>
               <div>
                 <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date *</label>
-                <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
+                <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" required>
               </div>
               <div>
                 <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer *</label>
-                <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer">
+                <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer" required>
               </div>
             </div>
           </div>
@@ -366,6 +365,7 @@
                 </h3>
               </div>
               
+              <div class="p-5 space-y-6">
                 <!-- Programme Details -->
                 <div class="space-y-4">
                   <div>
@@ -387,14 +387,14 @@
                 </div>
 
                 <!-- Attendance Info -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-4">
                   <div>
-                    <label class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
+                    <label class="block text-sm text-slate-700 mb-2">Tetamu Kehormat</label>
                     <div id="vip-guests-container" class="space-y-2">
                       <!-- Initial guest field -->
-                      <div class="flex gap-2">
+                      <div class="flex gap-2 vip-guest-row">
                         <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-                        <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700" onclick="addVipGuest()">
+                        <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-colors" onclick="addVipGuest()">
                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                           </svg>
@@ -402,13 +402,15 @@
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <label for="ip1-bil-tetamu" class="block text-sm text-slate-700 mb-1">Bilangan Tetamu Yang Hadir</label>
-                    <input type="number" id="ip1-bil-tetamu" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Number of attendees">
-                  </div>
-                  <div class="md:col-span-2">
-                    <label for="ip1-pihak-media" class="block text-sm text-slate-700 mb-1">Pihak Media Yang Hadir</label>
-                    <textarea id="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event"></textarea>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label for="ip1-bil-tetamu" class="block text-sm text-slate-700 mb-1">Bilangan Tetamu Yang Hadir</label>
+                      <input type="number" id="ip1-bil-tetamu" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Number of attendees">
+                    </div>
+                    <div class="md:col-span-2">
+                      <label for="ip1-pihak-media" class="block text-sm text-slate-700 mb-1">Pihak Media Yang Hadir</label>
+                      <textarea id="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event"></textarea>
+                    </div>
                   </div>
                 </div>
 
@@ -609,118 +611,7 @@
               </div>
             </div>
 
-            <!-- IP3M2 Section -->
-            <div id="section-ip3m2" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
-              <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
-                <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
-                  <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    IP3M2 - Economic & Media Analysis
-                  </span>
-                  <span class="text-sm font-normal text-blue-600">Economic Impact & ROI</span>
-                </h3>
-              </div>
-              <div class="p-5 space-y-6">
-                <!-- Promotion & Outreach -->
-                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Promotion & Outreach (Media Coverage)</h4>
-                  <div class="space-y-4">
-                    <div>
-                      <label for="ip3-media-list" class="block text-sm text-slate-700 mb-1">List of Media</label>
-                      <textarea id="ip3-media-list" rows="3" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter media outlets (one per line)"></textarea>
-                      <p class="text-xs text-slate-500 mt-1">Requires at least 3 media outlets for 100% coverage</p>
-                    </div>
-                    <div class="p-3 bg-white rounded-lg border border-blue-200">
-                      <p class="text-sm text-slate-700">Percentage of Media Coverage: <span id="ip3-media-percent" class="text-blue-600 font-semibold">0%</span></p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Participation (FIXED ORDER) -->
-                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Participation</h4>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label for="ip3-actual-attendance" class="block text-sm text-slate-700 mb-1">Actual Attendance</label>
-                      <input type="number" id="ip3-actual-attendance" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                    </div>
-                    <div>
-                      <label for="ip3-target-attendance" class="block text-sm text-slate-700 mb-1">Target Attendance</label>
-                      <input type="number" id="ip3-target-attendance" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                    </div>
-                  </div>
-                  <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
-                    <p class="text-sm text-slate-700">Mark: <span id="ip3-participation-percent" class="text-blue-600 font-semibold">0%</span></p>
-                    <p class="text-xs text-slate-500">(Actual Attendance / Target Attendance) × 100% (max 100%)</p>
-                  </div>
-                </div>
-
-                <!-- Satisfaction -->
-                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Participant Satisfaction Level</h4>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label for="ip3-total-respondent" class="block text-sm text-slate-700 mb-1">Total Respondent</label>
-                      <input type="number" id="ip3-total-respondent" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                    </div>
-                    <div>
-                      <label for="ip3-positive-respondent" class="block text-sm text-slate-700 mb-1">Positive Respondent</label>
-                      <input type="number" id="ip3-positive-respondent" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                    </div>
-                  </div>
-                  <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
-                    <p class="text-sm text-slate-700">Percentages of Response Positively: <span id="ip3-satisfaction-percent" class="text-blue-600 font-semibold">0%</span></p>
-                    <p class="text-xs text-slate-500">(Positive Respondent / Total Respondent) × 100%</p>
-                  </div>
-                </div>
-
-                <!-- Economic Generation -->
-                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Economic Generation</h4>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label for="ip3-revenue" class="block text-sm text-slate-700 mb-1">Revenue (RM)</label>
-                      <input type="number" id="ip3-revenue" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
-                    </div>
-                    <div>
-                      <label for="ip3-modal" class="block text-sm text-slate-700 mb-1">Modal (RM)</label>
-                      <input type="number" id="ip3-modal" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
-                    </div>
-                  </div>
-                  <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
-                    <p class="text-sm text-slate-700">ROI: <span id="ip3-roi-percent" class="text-blue-600 font-semibold">0%</span></p>
-                    <p class="text-xs text-slate-500">(Revenue - Modal) / Modal × 100%</p>
-                  </div>
-                </div>
-
-                <!-- Gambar Program -->
-                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                  <h4 class="text-md font-semibold text-blue-700 mb-4">Gambar Program / Tangkap Layar Media</h4>
-                  <p class="text-sm text-slate-600 mb-3">Muat naik gambar aktiviti program atau tangkapan skrin liputan media.</p>
-                  <div class="flex flex-col gap-3">
-                    <label for="ip3m2-images" class="block text-sm text-slate-700">
-                      Pilih satu atau lebih fail gambar (JPEG, PNG)
-                    </label>
-                    <input 
-                      type="file" 
-                      id="ip3m2-images" 
-                      class="w-full px-4 py-2 rounded-lg input-style text-slate-800"
-                      accept="image/jpeg,image/png,image/jpg"
-                      multiple
-                    >
-                    <div id="ip3m2-image-preview" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3"></div>
-                  </div>
-                  <p class="text-xs text-slate-500 mt-2">
-                    Sokongan: JPG, PNG. Saiz maksimum disyorkan: 5MB setiap fail.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
+                      <!-- Submit Button -->
           <div class="p-6 border-t border-slate-200">
             <button type="submit" id="submit-btn" class="w-full btn-primary py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 no-print">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
