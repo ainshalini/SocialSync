@@ -84,17 +84,6 @@
       border-radius: 3px;
     }
     
-    /* Make section buttons clickable */
-    .section-btn {
-      cursor: pointer;
-      user-select: none;
-    }
-    
-    .section-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    
     /* Print Styles */
     @media print {
       body * {
@@ -296,12 +285,12 @@
               <div class="text-sm text-slate-600">Programme Details</div>
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-2">
-              <div class="font-semibold text-slate-700">IP2M1:2</div>
-              <div class="text-sm text-slate-600">Performance Metrics</div>
+              <div class="font-semibold text-slate-700">IP2M1</div>
+              <div class="text-sm text-slate-600">Community Engegement Index</div>
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip3m2">
               <div class="font-semibold text-slate-700">IP3M2</div>
-              <div class="text-sm text-slate-600">Economic & Media Analysis</div>
+              <div class="text-sm text-slate-600">Event Management Effectiveness Index</div>
             </button>
           </div>
         </div>
@@ -318,15 +307,33 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name *</label>
+              <div class="p-5 space-y-4">
+                <!-- DAERAH Dropdown -->
+                <div>
+                  <h4 class="text-sm font-semibold text-blue-600 mb-3">Pilih Daerah</h4>
+                  <select id="daerah-dropdown" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
+                    <option value="">-- Pilih Daerah --</option>
+                    <option value="Pejabat Residen Bahagian Mukah">Pejabat Residen Bahagian Mukah</option>
+                    <option value="Pejabat Daerah Mukah">Pejabat Daerah Mukah</option>
+                    <option value="Pejabat Daerah Dalat">Pejabat Daerah Dalat</option>
+                    <option value="Pejabat Daerah Matu">Pejabat Daerah Matu</option>
+                    <option value="Pejabat Daerah Daro">Pejabat Daerah Daro</option>
+                    <option value="Pejabat Daerah Tanjung Manis">Pejabat Daerah Tanjung Manis</option>
+                    <option value="Pejabat Daerah Kecil Balingian">Pejabat Daerah Kecil Balingian</option>
+                    <option value="Pejabat Daerah Kecil Oya">Pejabat Daerah Kecil Oya</option>
+                    <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
+                  </select>
+                </div>
+                
+                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name</label>
                 <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name" required>
               </div>
               <div>
-                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date *</label>
+                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date</label>
                 <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
               </div>
               <div>
-                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer *</label>
+                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer</label>
                 <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer">
               </div>
             </div>
@@ -347,23 +354,6 @@
                   <span class="text-sm font-normal text-blue-600">Community Engagement Report</span>
                 </h3>
               </div>
-              <div class="p-5 space-y-4">
-                <!-- DAERAH Dropdown -->
-                <div>
-                  <h4 class="text-sm font-semibold text-blue-600 mb-3">Pilih Daerah</h4>
-                  <select id="daerah-dropdown" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
-                    <option value="">-- Pilih Daerah --</option>
-                    <option value="Pejabat Residen Bahagian Mukah">Pejabat Residen Bahagian Mukah</option>
-                    <option value="Pejabat Daerah Mukah">Pejabat Daerah Mukah</option>
-                    <option value="Pejabat Daerah Dalat">Pejabat Daerah Dalat</option>
-                    <option value="Pejabat Daerah Matu">Pejabat Daerah Matu</option>
-                    <option value="Pejabat Daerah Daro">Pejabat Daerah Daro</option>
-                    <option value="Pejabat Daerah Tanjung Manis">Pejabat Daerah Tanjung Manis</option>
-                    <option value="Pejabat Daerah Kecil Balingian">Pejabat Daerah Kecil Balingian</option>
-                    <option value="Pejabat Daerah Kecil Oya">Pejabat Daerah Kecil Oya</option>
-                    <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
-                  </select>
-                </div>
 
                 <!-- Programme Details -->
                 <div class="space-y-4">
@@ -388,18 +378,8 @@
                 <!-- Attendance Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
-                    <div id="vip-guests-container" class="space-y-2">
-                      <!-- Initial guest field -->
-                      <div class="flex gap-2">
-                        <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-                        <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700" onclick="addVipGuest()">
-                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
+                    <label for="ip1-tetamu" class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
+                    <input type="text" id="ip1-tetamu" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="VIP guests">
                   </div>
                   <div>
                     <label for="ip1-bil-tetamu" class="block text-sm text-slate-700 mb-1">Bilangan Tetamu Yang Hadir</label>
@@ -785,4 +765,498 @@
       if (channels === 1) mediaCoverage = 80;
       else if (channels === 2) mediaCoverage = 90;
       else if (channels >= 3) mediaCoverage = 100;
-      document.getElementById('media-coverage').textContent
+      document.getElementById('media-coverage').textContent = mediaCoverage + '%';
+
+      const crowdSize = num(document.getElementById('crowd-size').value);
+      const targetGroup = num(document.getElementById('target-group').value);
+      const surveyPercent = targetGroup > 0 ? Math.min(100, (crowdSize / targetGroup) * 100) : 0;
+      const formatted = surveyPercent.toFixed(1);
+      document.getElementById('survey-percent-display').textContent = formatted + '%';
+      document.getElementById('participant-percent').textContent = formatted + '%';
+      const totalScore = (mediaCoverage + surveyPercent + surveyPercent) / 3;
+      document.getElementById('total-ip2m1-2').textContent = totalScore.toFixed(1);
+    }
+
+    function updateIP3M2() {
+      const mediaList = document.getElementById('ip3-media-list').value.trim();
+      const mediaCount = mediaList ? mediaList.split(/\r?\n/).filter(line => line.trim() !== '').length : 0;
+      document.getElementById('ip3-media-percent').textContent = (mediaCount >= 3 ? 100 : 0) + '%';
+
+      const ip3Actual = num(document.getElementById('ip3-actual-attendance').value);
+      const ip3Target = num(document.getElementById('ip3-target-attendance').value);
+      const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100) : 0;
+      document.getElementById('ip3-participation-percent').textContent = ip3Participation.toFixed(1) + '%';
+
+      const totalRespondent = num(document.getElementById('ip3-total-respondent').value);
+      const positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
+      const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
+      document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
+
+      const revenue = num(document.getElementById('ip3-revenue').value);
+      const modal = num(document.getElementById('ip3-modal').value);
+      let roi = 0;
+      if (modal > 0) roi = ((revenue - modal) / modal) * 100;
+      const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
+      document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
+    }
+
+    // Base64 conversion
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const base64 = reader.result.split(',')[1];
+          resolve({ name: file.name, mimeType: file.type,  base64 });
+        };
+        reader.onerror = reject;
+      });
+    }
+
+    // Fetch record count from Google Sheet
+    async function fetchRecordCount() {
+      try {
+        const response = await fetch('YOUR_WEB_APP_URL?count=1');
+        const data = await response.json();
+        document.getElementById('record-count').textContent = `${data.count} Records`;
+      } catch (error) {
+        console.error("Failed to fetch record count:", error);
+        document.getElementById('record-count').textContent = "0 Records";
+      }
+    }
+
+    // Submit handler
+    async function submitForm(e) {
+      e.preventDefault(); // Prevent page reload
+
+      const btn = document.getElementById('submit-btn');
+      const originalHTML = btn.innerHTML;
+
+      // Validation
+      const required = ['programme', 'date', 'organizer'];
+      for (const id of required) {
+        if (!document.getElementById(id).value.trim()) {
+          alert('❌ Please fill in Programme, Date, and Organizer.');
+          return;
+        }
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Saving...</span>';
+
+      try {
+        // Get selected section
+        const selectedSection = document.querySelector('.section-btn.border-cyan-400')?.dataset.section;
+        if (!selectedSection) {
+          alert('❌ Please select a report type.');
+          return;
+        }
+
+        // Combine selected media channels with examples
+        const selectedMedia = [];
+        if (document.getElementById('media-cetak-checkbox')?.checked) {
+          const example = document.getElementById('media-cetak-example')?.value.trim();
+          selectedMedia.push(`Media Cetak (Print Media): ${example || 'N/A'}`);
+        }
+        if (document.getElementById('media-elektronik-checkbox')?.checked) {
+          const example = document.getElementById('media-elektronik-example')?.value.trim();
+          selectedMedia.push(`Media Elektronik (Electronic Media): ${example || 'N/A'}`);
+        }
+        if (document.getElementById('media-digital-checkbox')?.checked) {
+          const example = document.getElementById('media-digital-example')?.value.trim();
+          selectedMedia.push(`Media Digital (Digital Media): ${example || 'N/A'}`);
+        }
+        const selectedMediaText = selectedMedia.join(', ');
+
+        // Combine selected supporting docs
+        const selectedDocs = [
+          document.getElementById('doc-kertas-kerja')?.checked ? 'Kertas kerja program / slide pembentangan' : '',
+          document.getElementById('doc-surat-mesyuarat')?.checked ? 'Surat mesyuarat penyelarasan / jemputan program' : '',
+          document.getElementById('doc-laporan-kpi')?.checked ? 'Laporan selepas program - borang KPI IP2M1-1' : '',
+          document.getElementById('doc-gambar')?.checked ? 'Gambar program / tangkap layar media' : '',
+          document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
+        ].filter(Boolean).join(', ');
+
+        const formData = {
+          programme_name: document.getElementById('programme').value,
+          programme_date: document.getElementById('date').value,
+          organizer: document.getElementById('organizer').value,
+          daerah: document.getElementById('daerah-dropdown')?.value || '', // 👈 NEW DAERAH FIELD
+          ip2m1_category: document.getElementById('ip1-category')?.value || '',
+          venue_capacity: document.getElementById('ip1-tempat')?.value || '',
+          description: document.getElementById('ip1-deskripsi')?.value || '',
+          objective: document.getElementById('ip1-objektif')?.value || '',
+          impact: document.getElementById('ip1-impak')?.value || '',
+          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
+          total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
+          media_present: document.getElementById('ip1-pihak-media')?.value || '',
+
+          selected_media_channels: selectedMediaText,
+          media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
+
+          crowd_size: document.getElementById('crowd-size')?.value || 0,
+          target_group: document.getElementById('target-group')?.value || 0,
+          survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
+          total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
+
+          selected_supporting_docs: selectedDocs,
+
+          ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
+          ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
+          ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
+          ip3_target_attendance: document.getElementById('ip3-target-attendance')?.value || 0,
+          ip3_participation_percent: parseFloat(document.getElementById('ip3-participation-percent')?.textContent) || 0,
+          ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
+          ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
+          ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
+          revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
+          modal_rm: document.getElementById('ip3-modal')?.value || 0,
+          roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
+        };
+
+        // Process images based on selected section
+        const imageFiles = {
+          'ip2m1-1': document.getElementById('ip2m1-1-images')?.files || [],
+          'ip2m1-2': document.getElementById('ip2m1-2-images')?.files || [],
+          'ip3m2': document.getElementById('ip3m2-images')?.files || []
+        };
+        
+        const images = [];
+        const selectedImages = imageFiles[selectedSection] || [];
+        for (let i = 0; i < selectedImages.length; i++) {
+          images.push(await fileToBase64(selectedImages[i]));
+        }
+
+        // Process PDFs (only for IP2M1:2)
+        const pdfs = [];
+        if (selectedSection === 'ip2m1-2') {
+          const pdfFiles = document.getElementById('supporting-docs-pdf')?.files || [];
+          for (let i = 0; i < pdfFiles.length; i++) {
+            pdfs.push(await fileToBase64(pdfFiles[i]));
+          }
+        }
+
+        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz0N8JDyqFj7KDfPR2vs79jk4-ZD0tq7JyKUMSc5xxNBSqaV_dOj9EsMpL5cc9oakH8FQ/exec';
+
+        fetch(WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ formData, images, pdfs })
+        });
+
+        setTimeout(() => {
+          alert('✅ Maklumat Telah Disimpan.');
+          document.getElementById('main-form').reset();
+          // Clear image previews
+          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+          if (selectedSection === 'ip2m1-2') {
+            document.getElementById('supporting-docs-pdf').value = '';
+          }
+          updateIP2M1_2();
+          updateIP3M2();
+          fetchRecordCount();
+        }, 500);
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Submission may have failed. Check browser console.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
+    }
+
+    // Section selection
+    function setupSectionSelection() {
+      const sectionBtns = document.querySelectorAll('.section-btn');
+      const form = document.getElementById('main-form');
+      const sections = {
+        'ip2m1-1': document.getElementById('section-ip2m1-1'),
+        'ip2m1-2': document.getElementById('section-ip2m1-2'),
+        'ip3m2': document.getElementById('section-ip3m2')
+      };
+
+      sectionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active state from all buttons
+          sectionBtns.forEach(b => b.classList.remove('border-cyan-400', 'bg-cyan-50'));
+          
+          // Add active state to clicked button
+          btn.classList.add('border-cyan-400', 'bg-cyan-50');
+          
+          // Show form and selected section
+          form.classList.remove('hidden');
+          Object.values(sections).forEach(section => section.classList.add('hidden'));
+          const sectionId = btn.dataset.section;
+          if (sections[sectionId]) {
+            sections[sectionId].classList.remove('hidden');
+          }
+        });
+      });
+    }
+
+    // Image preview
+    function setupImagePreview() {
+      const imageInputs = [
+        { input: 'ip2m1-1-images', preview: 'ip2m1-1-image-preview' },
+        { input: 'ip2m1-2-images', preview: 'ip2m1-2-image-preview' },
+        { input: 'ip3m2-images', preview: 'ip3m2-image-preview' }
+      ];
+
+      imageInputs.forEach(({ input, preview }) => {
+        const inputEl = document.getElementById(input);
+        if (inputEl) {
+          inputEl.addEventListener('change', (e) => {
+            const previewEl = document.getElementById(preview);
+            previewEl.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+              if (!file.type.match('image.*')) return;
+              const reader = new FileReader();
+              reader.onload = ev => {
+                const img = document.createElement('img');
+                img.src = ev.target.result;
+                img.className = 'w-full h-24 object-cover rounded-lg border border-slate-200';
+                previewEl.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+            });
+          });
+        }
+      });
+    }
+
+    // Print functionality
+    function setupPrint() {
+      const printBtn = document.getElementById('print-btn');
+      const printModal = document.getElementById('print-modal');
+      const printCancel = document.getElementById('print-cancel');
+      const printConfirm = document.getElementById('print-confirm');
+
+      // Show modal
+      printBtn.addEventListener('click', () => {
+        printModal.classList.remove('hidden');
+      });
+
+      // Hide modal
+      printCancel.addEventListener('click', () => {
+        printModal.classList.add('hidden');
+      });
+
+      // Handle print
+      printConfirm.addEventListener('click', () => {
+        const ip2m1_1 = document.getElementById('print-ip2m1-1').checked;
+        const ip2m1_2 = document.getElementById('print-ip2m1-2').checked;
+        const ip3m2 = document.getElementById('print-ip3m2').checked;
+
+        if (!ip2m1_1 && !ip2m1_2 && !ip3m2) {
+          alert('Please select at least one section to print.');
+          return;
+        }
+
+        // Create print content
+        const printContent = document.createElement('div');
+        printContent.id = 'print-content';
+        
+        // Add header
+        const programmeName = document.getElementById('programme').value || 'Programme';
+        const programmeDate = document.getElementById('date').value || 'Date';
+        const organizer = document.getElementById('organizer').value || 'Organizer';
+        
+        printContent.innerHTML = `
+          <div class="print-header">
+            <h1 class="print-title">SocialSync Official Report</h1>
+            <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
+          </div>
+        `;
+
+        // Function to create Q&A field
+        function createQAField(question, answer) {
+          if (!answer) return '';
+          return `
+            <div class="print-field">
+              <div class="print-label">${question}</div>
+              <div class="print-value">${answer}</div>
+            </div>
+          `;
+        }
+
+        // Function to create checklist
+        function createChecklist(items) {
+          if (!items || items.length === 0) return '';
+          let html = '<div class="print-checklist">';
+          items.forEach(item => {
+            html += `<div class="print-checklist-item"><div class="print-checkbox checked"></div><div class="print-value">${item}</div></div>`;
+          });
+          html += '</div>';
+          return html;
+        }
+
+        // Add BULETIN DAERAH section
+        if (ip2m1_1) {
+          const section1 = document.createElement('div');
+          section1.className = 'print-section';
+          section1.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">BULETIN DAERAH</h2>
+              <div class="print-section-subtitle">Community Engagement Report</div>
+            </div>
+            ${createQAField('Daerah', document.getElementById('daerah-dropdown').options[document.getElementById('daerah-dropdown').selectedIndex]?.text || '')}
+            ${createQAField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
+            ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
+            ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
+            ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
+            ${createQAField('Tetamu Kehormat', document.getElementById('ip1-tetamu').value)}
+            ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
+            ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
+          `;
+          printContent.appendChild(section1);
+        }
+        
+        // Add IP2M1:2 section
+        if (ip2m1_2) {
+          const section2 = document.createElement('div');
+          section2.className = 'print-section';
+          
+          // Media channels
+          let mediaItems = [];
+          if (document.getElementById('media-cetak-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-cetak-example').value || 'Media Cetak (Print Media)');
+          }
+          if (document.getElementById('media-elektronik-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-elektronik-example').value || 'Media Elektronik (Electronic Media)');
+          }
+          if (document.getElementById('media-digital-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-digital-example').value || 'Media Digital (Digital Media)');
+          }
+          
+          // Supporting documents
+          let docItems = [];
+          if (document.getElementById('doc-kertas-kerja').checked) docItems.push('Kertas kerja program / slide pembentangan');
+          if (document.getElementById('doc-surat-mesyuarat').checked) docItems.push('Surat mesyuarat penyelarasan / jemputan program');
+          if (document.getElementById('doc-laporan-kpi').checked) docItems.push('Laporan selepas program - borang KPI IP2M1-1');
+          if (document.getElementById('doc-gambar').checked) docItems.push('Gambar program / tangkap layar media');
+          if (document.getElementById('doc-laporan-sms').checked) docItems.push('Laporan Maklum Balas dari Survey Management System (SMS)');
+          
+          section2.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP2M1:2 - Performance Metrics</h2>
+              <div class="print-section-subtitle">Performance & Feedback Analysis</div>
+            </div>
+            ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
+            ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
+            ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
+            ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
+            ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
+            ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
+            ${createQAField('Total Score', document.getElementById('total-ip2m1-2').textContent + '%')}
+            ${createQAField('Supporting Documents', docItems.join(', '))}
+          `;
+          printContent.appendChild(section2);
+        }
+        
+        // Add IP3M2 section
+        if (ip3m2) {
+          const section3 = document.createElement('div');
+          section3.className = 'print-section';
+          section3.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP3M2 - Economic & Media Analysis</h2>
+            </div>
+            ${createQAField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
+            ${createQAField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
+            ${createQAField('Actual Attendance', document.getElementById('ip3-actual-attendance').value)}
+            ${createQAField('Target Attendance', document.getElementById('ip3-target-attendance').value)}
+            ${createQAField('Participation Mark', document.getElementById('ip3-participation-percent').textContent)}
+            ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
+            ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
+            ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
+            ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
+            ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
+            ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
+          `;
+          printContent.appendChild(section3);
+        }
+        
+        // Add footer
+        printContent.innerHTML += `
+          <div class="print-footer">
+            SocialSync Programme Management System • Official Government Document • Confidential
+          </div>
+        `;
+
+        // Temporarily add to body
+        document.body.appendChild(printContent);
+        
+        // Trigger print
+        window.print();
+        
+        // Remove after print
+        setTimeout(() => {
+          document.body.removeChild(printContent);
+          printModal.classList.add('hidden');
+        }, 100);
+      });
+
+      // Close modal when clicking outside
+      printModal.addEventListener('click', (e) => {
+        if (e.target === printModal) {
+          printModal.classList.add('hidden');
+        }
+      });
+    }
+
+    // Setup
+    document.addEventListener('DOMContentLoaded', () => {
+      // Enable media example fields when checked
+      ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', (e) => {
+            const exampleId = id.replace('-checkbox', '-example');
+            const exampleEl = document.getElementById(exampleId);
+            if (exampleEl) {
+              exampleEl.disabled = !e.target.checked;
+            }
+          });
+        }
+      });
+
+      // Attach calculation listeners
+      ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP2M1_2);
+        });
+      ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP3M2);
+        });
+
+      // Setup section selection
+      setupSectionSelection();
+
+      // Setup image preview
+      setupImagePreview();
+
+      // Handle form submission
+      document.getElementById('main-form').addEventListener('submit', submitForm);
+
+      // View Records → open Google Sheet
+      document.getElementById('view-records-btn').addEventListener('click', () => {
+        window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit', '_blank');
+      });
+
+      // Initialize print functionality
+      setupPrint();
+
+      // Load record count on page start
+      fetchRecordCount();
+
+      updateIP2M1_2();
+      updateIP3M2();
+    });
+  </script>
+</body>
+</html>
