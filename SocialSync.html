@@ -908,19 +908,11 @@
           description: document.getElementById('ip1-deskripsi')?.value || '',
           objective: document.getElementById('ip1-objektif')?.value || '',
           impact: document.getElementById('ip1-impak')?.value || '',
-          
-          // Collect all Tetamu Kehormat values
-          const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
-          const vipGuestValues = Array.from(vipGuestInputs)
-            .map(input => input.value.trim())
-            .filter(value => value !== '');
-          const vipGuestText = vipGuestValues.join(', ');
+          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
           total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
           media_present: document.getElementById('ip1-pihak-media')?.value || '',
-
           selected_media_channels: selectedMediaText,
           media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
-
           crowd_size: document.getElementById('crowd-size')?.value || 0,
           target_group: document.getElementById('target-group')?.value || 0,
           survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
