@@ -902,30 +902,33 @@
           document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
         ].filter(Boolean).join(', ');
 
+        // Collect all Tetamu Kehormat from dynamic fields
+        const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+        const vipGuestValues = Array.from(vipGuestInputs)
+        .map(input => input.value.trim())
+        .filter(value => value !== '');
+        const vipGuestText = vipGuestValues.join(', ');
+
         const formData = {
           programme_name: document.getElementById('programme').value,
           programme_date: document.getElementById('date').value,
           organizer: document.getElementById('organizer').value,
-          daerah: document.getElementById('daerah-dropdown')?.value || '', // 👈 NEW DAERAH FIELD
+          daerah: document.getElementById('daerah-dropdown')?.value || '',
           ip2m1_category: document.getElementById('ip1-category')?.value || '',
           venue_capacity: document.getElementById('ip1-tempat')?.value || '',
           description: document.getElementById('ip1-deskripsi')?.value || '',
           objective: document.getElementById('ip1-objektif')?.value || '',
           impact: document.getElementById('ip1-impak')?.value || '',
-          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
+          vip_guest: vipGuestText, // ✅ This will now work!
           total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
           media_present: document.getElementById('ip1-pihak-media')?.value || '',
-
           selected_media_channels: selectedMediaText,
           media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
-
           crowd_size: document.getElementById('crowd-size')?.value || 0,
           target_group: document.getElementById('target-group')?.value || 0,
           survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
           total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
-
           selected_supporting_docs: selectedDocs,
-
           ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
           ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
           ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
@@ -937,8 +940,7 @@
           revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
           modal_rm: document.getElementById('ip3-modal')?.value || 0,
           roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
-        };
-
+          };
         // Process images based on selected section
         const imageFiles = {
           'ip2m1-1': document.getElementById('ip2m1-1-images')?.files || [],
