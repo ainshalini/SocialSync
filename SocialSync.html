@@ -915,9 +915,7 @@ okay this is part 2           <!-- Submit Button -->
           target_group: document.getElementById('target-group')?.value || 0,
           survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
           total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
-
           selected_supporting_docs: selectedDocs,
-
           ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
           ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
           ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
@@ -953,36 +951,39 @@ okay this is part 2           <!-- Submit Button -->
           }
         }
 
-        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwZ9f1PsRWHvdk04zQp5wN3CO39yzNpUep8hMDWTDl2Bi0KbMQCET5tdgVFAtA6U3F7VQ/exec';
+// 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwcACKwoxDqPMZZaeXCDeyzUw1no7BzUz21NlRfxQRGJjMvteGju0LzjWL0s4fz2_2ZVw/exec';
 
-        fetch(WEB_APP_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ formData, images, pdfs })
-        });
-
-        setTimeout(() => {
-          alert('✅ Maklumat Telah Disimpan.');
-          document.getElementById('main-form').reset();
-          // Clear image previews
-          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
-          if (selectedSection === 'ip2m1-2') {
-            document.getElementById('supporting-docs-pdf').value = '';
-          }
-        //   updateIP2M1_2();
-        //   updateIP3M2();
-        //   fetchRecordCount();
-        }, 500);
-      } catch (err) {
-        console.error(err);
-        alert('⚠️ Submission may have failed. Check browser console.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = originalHTML;
-      }
+// ✅ FIXED: Wait for actual response before showing success
+try {
+  const response = await fetch(WEB_APP_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ formData, images, pdfs })
+  });
+  
+  // Only show success if Google actually received the data
+  if (response.ok) {
+    alert('✅ Maklumat Telah Disimpan.');
+    document.getElementById('main-form').reset();
+    // Clear image previews
+    document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+    if (selectedSection === 'ip2m1-2') {
+      document.getElementById('supporting-docs-pdf').value = '';
     }
-
+    updateIP2M1_2();
+    updateIP3M2();
+    fetchRecordCount(); // ✅ This will now work!
+  } else {
+    throw new Error('Submission failed');
+  }
+} catch (err) {
+  console.error(err);
+  alert('⚠️ Submission may have failed. Check browser console.');
+} finally {
+  btn.disabled = false;
+  btn.innerHTML = originalHTML;
+}
     // Section selection
     function setupSectionSelection() {
       const sectionBtns = document.querySelectorAll('.section-btn');
@@ -1269,7 +1270,6 @@ okay this is part 2           <!-- Submit Button -->
 
       // Load record count on page start
       fetchRecordCount();
-
       updateIP2M1_2();
       updateIP3M2();
     });
