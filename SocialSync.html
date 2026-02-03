@@ -836,11 +836,10 @@ okay this is part 2           <!-- Submit Button -->
     // Fetch record count from Google Sheet
     async function fetchRecordCount() {
       try {
-        const response = await fetch(WEB_APP_URL + '?count=1');
-        const data = await response.json();
+        const res = await fetch(WEB_APP_URL + '?count=1');
+        const data = await res.json();
         document.getElementById('record-count').textContent = `${data.count} Records`;
       } catch (error) {
-        console.error("Failed to fetch record count:", error);
         document.getElementById('record-count').textContent = "0 Records";
       }
     }
