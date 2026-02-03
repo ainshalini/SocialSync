@@ -956,12 +956,11 @@
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwY59DhEpOWB8Z1CWhmr9Z4LGdQfTAH__IDTzsiriHy--xXyzrhUZSzjkGK_AwYSG9V/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxOJqsLMi092BzNSvIwqHcNowlXn0PWqQ_sYN0pN060Mr0UkJbIwEHe64A98qRSyJEu/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ formData, images, pdfs })
         });
 
