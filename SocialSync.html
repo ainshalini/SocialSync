@@ -337,7 +337,7 @@
 
               <div>
                 <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name *</label>
-                <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name" required>
+                <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name">
               </div>
               <div>
                 <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date *</label>
@@ -851,15 +851,6 @@
       const btn = document.getElementById('submit-btn');
       const originalHTML = btn.innerHTML;
 
-      // Validation
-      const required = ['programme', 'date', 'organizer'];
-      for (const id of required) {
-        if (!document.getElementById(id).value.trim()) {
-          alert('❌ Please fill in Programme, Date, and Organizer.');
-          return;
-        }
-      }
-
       btn.disabled = true;
       btn.innerHTML = '<span>Saving...</span>';
 
@@ -956,7 +947,7 @@
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw6U0jkspTmvhRpXErQ_Og0aNW9e4SRpQxgDS0MLBDrSBQp2TCLJfAoSP-Sk3hHfsocYA/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyjjb9J0SXCWHawdw3j7-j1oA7jPJ31mWyvuA3nP6MB7rQOQEet9vfyC4zgDRSh4hiGZA/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
