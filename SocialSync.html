@@ -274,7 +274,9 @@
             </svg>
             Print Report
           </button>
-          <button id="view-records-btn" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-700 no-print">
+          <button id="print-btn" class="px-4 py-2 bg-blue-100 rounded-lg no-print">Print</button>
+          <button id="view-records-btn" class="px-4 py-2 bg-slate-100 rounded-lg no-print">View Records</button>
+    </div>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
@@ -835,14 +837,13 @@ okay this is part 2           <!-- Submit Button -->
 
     // Fetch record count from Google Sheet
     async function fetchRecordCount() {
-      try {
-        const response = await fetch('YOUR_WEB_APP_URL?count=1');
-        const data = await response.json();
+    try {
+        const res = await fetch(WEB_APP_URL + '?count=1');
+        const data = await res.json();
         document.getElementById('record-count').textContent = `${data.count} Records`;
-      } catch (error) {
-        console.error("Failed to fetch record count:", error);
-        document.getElementById('record-count').textContent = "0 Records";
-      }
+    } catch {
+        document.getElementById('record-count').textContent = '0 Records';
+    }
     }
 
     // Submit handler
