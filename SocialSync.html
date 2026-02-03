@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SocialSync</title>
-  <script src="https://cdn.tailwindcss.com  "></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk  :wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
@@ -82,17 +82,6 @@
     .scroll-container::-webkit-scrollbar-thumb {
       background: #3b82f6;
       border-radius: 3px;
-    }
-    
-    /* Make section buttons clickable */
-    .section-btn {
-      cursor: pointer;
-      user-select: none;
-    }
-    
-    .section-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     
     /* Print Styles */
@@ -297,7 +286,7 @@
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-2">
               <div class="font-semibold text-slate-700">IP2M1</div>
-              <div class="text-sm text-slate-600">Community Engagement Index</div>
+              <div class="text-sm text-slate-600">Community Engegement Index</div>
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip3m2">
               <div class="font-semibold text-slate-700">IP3M2</div>
@@ -317,6 +306,7 @@
               Programme Information
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
               <div class="p-5 space-y-4">
                 <!-- DAERAH Dropdown -->
                 <div>
@@ -334,17 +324,16 @@
                     <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
                   </select>
                 </div>
-
-              <div>
-                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name </label>
+                
+                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name</label>
                 <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name" required>
               </div>
               <div>
-                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date </label>
+                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date</label>
                 <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
               </div>
               <div>
-                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer </label>
+                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer</label>
                 <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer">
               </div>
             </div>
@@ -365,7 +354,7 @@
                   <span class="text-sm font-normal text-blue-600">Community Engagement Report</span>
                 </h3>
               </div>
-              <div class="p-5 space-y-4">
+
                 <!-- Programme Details -->
                 <div class="space-y-4">
                   <div>
@@ -374,34 +363,23 @@
                   </div>
                   <div>
                     <label for="ip1-deskripsi" class="block text-sm text-slate-700 mb-1">Deskripsi/Tujuan Program</label>
-                    <input type="text" id="ip1-deskripsi" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme description and purpose">
+                    <textarea id="ip1-deskripsi" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme description and purpose"></textarea>
                   </div>
                   <div>
                     <label for="ip1-objektif" class="block text-sm text-slate-700 mb-1">Objektif</label>
-                    <input type="text" id="ip1-objektif" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme objectives">
+                    <textarea id="ip1-objektif" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme objectives"></textarea>
                   </div>
                   <div>
                     <label for="ip1-impak" class="block text-sm text-slate-700 mb-1">Impak Program</label>
-                    <input type="text" id"ip1-impak" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme impact">
+                    <textarea id="ip1-impak" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme impact"></textarea>
                   </div>
                 </div>
 
                 <!-- Attendance Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <!-- Tetamu Kehormat (Dynamic) -->
                   <div>
-                    <label class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
-                    <div id="vip-guests-container" class="space-y-2">
-                      <!-- Initial guest field -->
-                      <div class="flex gap-2">
-                        <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-                        <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700" onclick="addVipGuest()">
-                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
+                    <label for="ip1-tetamu" class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
+                    <input type="text" id="ip1-tetamu" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="VIP guests">
                   </div>
                   <div>
                     <label for="ip1-bil-tetamu" class="block text-sm text-slate-700 mb-1">Bilangan Tetamu Yang Hadir</label>
@@ -409,7 +387,7 @@
                   </div>
                   <div class="md:col-span-2">
                     <label for="ip1-pihak-media" class="block text-sm text-slate-700 mb-1">Pihak Media Yang Hadir</label>
-                    <input type="text" id="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event">
+                    <textarea id="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event"></textarea>
                   </div>
                 </div>
 
@@ -437,7 +415,7 @@
               </div>
             </div>
 
-            <!-- IP2M1 Section -->
+            <!-- IP2M1:2 Section -->
             <div id="section-ip2m1-2" class="hidden bg-white rounded-xl border border-blue-200 overflow-hidden">
               <div class="section-header p-5 bg-gradient-to-r from-blue-50 to-blue-50 border-b border-blue-100">
                 <h3 class="text-md font-semibold text-blue-700 flex items-center justify-between">
@@ -445,7 +423,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
-                    IP2M1 - Community Engagement Index
+                    IP2M1:2 - Performance Metrics
                   </span>
                   <span class="text-sm font-normal text-blue-600">Performance & Feedback Analysis</span>
                 </h3>
@@ -618,7 +596,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    IP3M2 - Event Management Effectiveness Index
+                    IP3M2 - Economic & Media Analysis
                   </span>
                   <span class="text-sm font-normal text-blue-600">Economic Impact & ROI</span>
                 </h3>
@@ -720,7 +698,8 @@
               </div>
             </div>
           </div>
-okay this is part 2           <!-- Submit Button -->
+
+          <!-- Submit Button -->
           <div class="p-6 border-t border-slate-200">
             <button type="submit" id="submit-btn" class="w-full btn-primary py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2 no-print">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
@@ -786,7 +765,8 @@ okay this is part 2           <!-- Submit Button -->
       if (channels === 1) mediaCoverage = 80;
       else if (channels === 2) mediaCoverage = 90;
       else if (channels >= 3) mediaCoverage = 100;
-      document.getElementById('media-coverage').textContent
+      document.getElementById('media-coverage').textContent = mediaCoverage + '%';
+
       const crowdSize = num(document.getElementById('crowd-size').value);
       const targetGroup = num(document.getElementById('target-group').value);
       const surveyPercent = targetGroup > 0 ? Math.min(100, (crowdSize / targetGroup) * 100) : 0;
@@ -827,7 +807,7 @@ okay this is part 2           <!-- Submit Button -->
         reader.readAsDataURL(file);
         reader.onload = () => {
           const base64 = reader.result.split(',')[1];
-          resolve({ name: file.name, mimeType: file.type, data: base64 });
+          resolve({ name: file.name, mimeType: file.type,  base64 });
         };
         reader.onerror = reject;
       });
@@ -910,8 +890,10 @@ okay this is part 2           <!-- Submit Button -->
           vip_guest: document.getElementById('ip1-tetamu')?.value || '',
           total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
           media_present: document.getElementById('ip1-pihak-media')?.value || '',
+
           selected_media_channels: selectedMediaText,
           media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
+
           crowd_size: document.getElementById('crowd-size')?.value || 0,
           target_group: document.getElementById('target-group')?.value || 0,
           survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
@@ -959,7 +941,8 @@ okay this is part 2           <!-- Submit Button -->
 
         fetch(WEB_APP_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ formData, images, pdfs })
         });
 
@@ -1262,7 +1245,7 @@ okay this is part 2           <!-- Submit Button -->
 
       // View Records → open Google Sheet
       document.getElementById('view-records-btn').addEventListener('click', () => {
-        window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit  ', '_blank');
+        window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit', '_blank');
       });
 
       // Initialize print functionality
