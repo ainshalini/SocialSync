@@ -951,39 +951,36 @@ okay this is part 2           <!-- Submit Button -->
           }
         }
 
-// 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwcACKwoxDqPMZZaeXCDeyzUw1no7BzUz21NlRfxQRGJjMvteGju0LzjWL0s4fz2_2ZVw/exec';
+        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwZ9f1PsRWHvdk04zQp5wN3CO39yzNpUep8hMDWTDl2Bi0KbMQCET5tdgVFAtA6U3F7VQ/exec';
 
-// ✅ FIXED: Wait for actual response before showing success
-try {
-  const response = await fetch(WEB_APP_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ formData, images, pdfs })
-  });
-  
-  // Only show success if Google actually received the data
-  if (response.ok) {
-    alert('✅ Maklumat Telah Disimpan.');
-    document.getElementById('main-form').reset();
-    // Clear image previews
-    document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
-    if (selectedSection === 'ip2m1-2') {
-      document.getElementById('supporting-docs-pdf').value = '';
+        fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formData, images, pdfs })
+        });
+
+    setTimeout(() => {
+          alert('✅ Maklumat Telah Disimpan.');
+          document.getElementById('main-form').reset();
+          // Clear image previews
+          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+          if (selectedSection === 'ip2m1-2') {
+            document.getElementById('supporting-docs-pdf').value = '';
+          }
+          updateIP2M1_2();
+          updateIP3M2();
+          fetchRecordCount();
+        }, 500);
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Submission may have failed. Check browser console.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
     }
-    updateIP2M1_2();
-    updateIP3M2();
-    fetchRecordCount(); // ✅ This will now work!
-  } else {
-    throw new Error('Submission failed');
-  }
-} catch (err) {
-  console.error(err);
-  alert('⚠️ Submission may have failed. Check browser console.');
-} finally {
-  btn.disabled = false;
-  btn.innerHTML = originalHTML;
-}
+
     // Section selection
     function setupSectionSelection() {
       const sectionBtns = document.querySelectorAll('.section-btn');
