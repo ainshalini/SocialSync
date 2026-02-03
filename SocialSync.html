@@ -84,6 +84,17 @@
       border-radius: 3px;
     }
     
+    /* Make section buttons clickable */
+    .section-btn {
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .section-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
     /* Print Styles */
     @media print {
       body * {
@@ -286,7 +297,7 @@
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip2m1-2">
               <div class="font-semibold text-slate-700">IP2M1</div>
-              <div class="text-sm text-slate-600">Community Engegement Index</div>
+              <div class="text-sm text-slate-600">Community Engagement Index</div>
             </button>
             <button type="button" class="section-btn p-4 border-2 border-slate-200 rounded-lg text-center hover:border-cyan-400 hover:bg-cyan-50 transition-all" data-section="ip3m2">
               <div class="font-semibold text-slate-700">IP3M2</div>
@@ -306,7 +317,6 @@
               Programme Information
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
               <div class="p-5 space-y-4">
                 <!-- DAERAH Dropdown -->
                 <div>
@@ -324,16 +334,17 @@
                     <option value="Pejabat Daerah Kecil Igan">Pejabat Daerah Kecil Igan</option>
                   </select>
                 </div>
-                
-                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name</label>
+
+              <div>
+                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name *</label>
                 <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name" required>
               </div>
               <div>
-                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date</label>
+                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date *</label>
                 <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
               </div>
               <div>
-                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer</label>
+                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer *</label>
                 <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer">
               </div>
             </div>
@@ -354,7 +365,7 @@
                   <span class="text-sm font-normal text-blue-600">Community Engagement Report</span>
                 </h3>
               </div>
-
+              
                 <!-- Programme Details -->
                 <div class="space-y-4">
                   <div>
@@ -378,8 +389,18 @@
                 <!-- Attendance Info -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label for="ip1-tetamu" class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
-                    <input type="text" id="ip1-tetamu" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="VIP guests">
+                    <label class="block text-sm text-slate-700 mb-1">Tetamu Kehormat</label>
+                    <div id="vip-guests-container" class="space-y-2">
+                      <!-- Initial guest field -->
+                      <div class="flex gap-2">
+                        <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
+                        <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700" onclick="addVipGuest()">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <div>
                     <label for="ip1-bil-tetamu" class="block text-sm text-slate-700 mb-1">Bilangan Tetamu Yang Hadir</label>
@@ -765,8 +786,7 @@
       if (channels === 1) mediaCoverage = 80;
       else if (channels === 2) mediaCoverage = 90;
       else if (channels >= 3) mediaCoverage = 100;
-      document.getElementById('media-coverage').textContent = mediaCoverage + '%';
-
+      document.getElementById('media-coverage').textContent
       const crowdSize = num(document.getElementById('crowd-size').value);
       const targetGroup = num(document.getElementById('target-group').value);
       const surveyPercent = targetGroup > 0 ? Math.min(100, (crowdSize / targetGroup) * 100) : 0;
@@ -807,7 +827,7 @@
         reader.readAsDataURL(file);
         reader.onload = () => {
           const base64 = reader.result.split(',')[1];
-          resolve({ name: file.name, mimeType: file.type,  base64 });
+          resolve({ name: file.name, mimeType: file.type, data: base64 });
         };
         reader.onerror = reject;
       });
