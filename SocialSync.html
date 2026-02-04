@@ -850,7 +850,7 @@
 // Fetch record count from Google Sheet
 async function fetchRecordCount() {
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxauDQe9mKJKNYrupvgqSVd7sqryR3s-7zEOWVBl5n_LIzEYr34mwhffzoDx63oynd2sg/exec?count=1');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwcACKwoxDqPMZZaeXCDeyzUw1no7BzUz21NlRfxQRGJjMvteGju0LzjWL0s4fz2_2ZVw/exec?count=1');
     const data = await response.json();
     document.getElementById('record-count').textContent = `${data.count} Records`;
   } catch (error) {
@@ -962,7 +962,7 @@ async function fetchRecordCount() {
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxauDQe9mKJKNYrupvgqSVd7sqryR3s-7zEOWVBl5n_LIzEYr34mwhffzoDx63oynd2sg/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzorm6hc4_rdh9t1zweOnqhstYQGpzcXrG0mlHYtREgZnl8dZ3S7irmzCIeGlfa8042hg/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
@@ -1277,7 +1277,7 @@ async function fetchRecordCount() {
       setupPrint();
 
       // Load record count on page start
-      fetchRecordCouant();
+      fetchRecordCount();
 
       updateIP2M1_2();
       updateIP3M2();
