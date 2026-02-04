@@ -967,7 +967,7 @@ async function submitForm(e) {
     const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxdyKUTdM8tALdKFTrVaK9HlLAaD2InBMm8rHMDfplLfmiRJa1yeiyerYFBtiWx0SW93Q/exec';
 
     // ✅ PROPER FETCH WITH RESPONSE HANDLING
-    const response = await fetch(WEB_APP_URL, {
+    fetch(WEB_APP_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ formData, images, pdfs })
@@ -1123,6 +1123,17 @@ function setupImagePreview() {
               <div class="print-value">${answer}</div>
             </div>
           `;
+        }
+
+        // Function to create checklist
+        function createChecklist(items) {
+          if (!items || items.length === 0) return '';
+          let html = '<div class="print-checklist">';
+          items.forEach(item => {
+            html += `<div class="print-checklist-item"><div class="print-checkbox checked"></div><div class="print-value">${item}</div></div>`;
+          });
+          html += '</div>';
+          return html;
         }
 
         // Add BULETIN DAERAH section
