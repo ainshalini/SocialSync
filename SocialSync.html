@@ -963,39 +963,36 @@ async function submitForm(e) {
       }
     }
 
-    // ✅ CORRECT WEB APP URL (NO TRAILING SPACES!)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxdyKUTdM8tALdKFTrVaK9HlLAaD2InBMm8rHMDfplLfmiRJa1yeiyerYFBtiWx0SW93Q/exec';
+        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxdyKUTdM8tALdKFTrVaK9HlLAaD2InBMm8rHMDfplLfmiRJa1yeiyerYFBtiWx0SW93Q/exec';
 
-    // ✅ PROPER FETCH WITH RESPONSE HANDLING
-    const response = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ formData, images, pdfs })
-    });
+        fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formData, images, pdfs })
+        });
 
-    if (response.ok) {
-      alert('✅ Maklumat Telah Disimpan.');
-      document.getElementById('main-form').reset();
-      // Clear image previews
-      document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
-      if (selectedSection === 'ip2m1-2') {
-        document.getElementById('supporting-docs-pdf').value = '';
+        setTimeout(() => {
+          alert('✅ Maklumat Telah Disimpan.');
+          document.getElementById('main-form').reset();
+          // Clear image previews
+          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+          if (selectedSection === 'ip2m1-2') {
+            document.getElementById('supporting-docs-pdf').value = '';
+          }
+          updateIP2M1_2();
+          updateIP3M2();
+          fetchRecordCount();
+        }, 500);
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Submission may have failed. Check browser console.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
       }
-      
-      updateIP2M1_2();
-      updateIP3M2();
-      fetchRecordCount();
-    } else {
-      throw new Error('Submission failed');
     }
-  } catch (err) {
-    console.error(err);
-    alert('⚠️ Submission may have failed. Check browser console.');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
-  }
-}
+
 
 // Add new VIP guest field
 function addVipGuest() {
