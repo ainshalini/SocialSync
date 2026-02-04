@@ -850,7 +850,7 @@
 // Fetch record count from Google Sheet
 async function fetchRecordCount() {
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbx20I1cphyCW0tsHRv1gTkh7wPuJiWQNh6ktLt16A_2SkIHnP0k43w3bR4TM-7u4E72GA/exec?count=1');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbx20I1cphyCW0tsHRv1gTkh7wPuJiWQNh6ktLt16A_2SkIHnP0k43w3bR4TM-7u4E72GA/exec?count=1  ');
     const data = await response.json();
     document.getElementById('record-count').textContent = `${data.count} Records`;
   } catch (error) {
