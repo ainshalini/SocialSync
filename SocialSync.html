@@ -850,7 +850,7 @@
 // Fetch record count from Google Sheet
 async function fetchRecordCount() {
   try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxauDQe9mKJKNYrupvgqSVd7sqryR3s-7zEOWVBl5n_LIzEYr34mwhffzoDx63oynd2sg/exec?count=1  ');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzvbG-0Ykc9Biy6wxSGzoVL_rBFiPTrj9NQgPjEWi3rmzYRMqFgVfeE_A8EWtVNCX2Kfw/exec?count=1  ');
     const data = await response.json();
     document.getElementById('record-count').textContent = `${data.count} Records`;
   } catch (error) {
@@ -963,7 +963,7 @@ async function submitForm(e) {
     }
 
     // ✅ CORRECT WEB APP URL (NO TRAILING SPACES!)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxauDQe9mKJKNYrupvgqSVd7sqryR3s-7zEOWVBl5n_LIzEYr34mwhffzoDx63oynd2sg/exec  ';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzvbG-0Ykc9Biy6wxSGzoVL_rBFiPTrj9NQgPjEWi3rmzYRMqFgVfeE_A8EWtVNCX2Kfw/exec';
 
     // ✅ PROPER FETCH WITH RESPONSE HANDLING
     const response = await fetch(WEB_APP_URL, {
