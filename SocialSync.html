@@ -867,15 +867,6 @@ async function submitForm(e) {
   const btn = document.getElementById('submit-btn');
   const originalHTML = btn.innerHTML;
 
-  // Validation
-  const required = ['programme', 'date', 'organizer'];
-  for (const id of required) {
-    if (!document.getElementById(id).value.trim()) {
-      alert('❌ Please fill in Programme, Date, and Organizer.');
-      return;
-    }
-  }
-
   btn.disabled = true;
   btn.innerHTML = '<span>Saving...</span>';
 
@@ -930,7 +921,6 @@ async function submitForm(e) {
       impact: document.getElementById('ip1-impak')?.value || '',
       vip_guest: vipGuestText,
       total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
-      media_present: document.getElementById('ip1-pihak-media')?.value || '', // ✅ ADDED MISSING FIELD
       selected_media_channels: selectedMediaText,
       media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
       crowd_size: document.getElementById('crowd-size')?.value || 0,
@@ -1083,231 +1073,233 @@ function setupImagePreview() {
 }
 
 // Print functionality
-function setupPrint() {
-  const printBtn = document.getElementById('print-btn');
-  const printModal = document.getElementById('print-modal');
-  const printCancel = document.getElementById('print-cancel');
-  const printConfirm = document.getElementById('print-confirm');
+    function setupPrint() {
+      const printBtn = document.getElementById('print-btn');
+      const printModal = document.getElementById('print-modal');
+      const printCancel = document.getElementById('print-cancel');
+      const printConfirm = document.getElementById('print-confirm');
 
-  // Show modal
-  printBtn.addEventListener('click', () => {
-    printModal.classList.remove('hidden');
-  });
+      // Show modal
+      printBtn.addEventListener('click', () => {
+        printModal.classList.remove('hidden');
+      });
 
-  // Hide modal
-  printCancel.addEventListener('click', () => {
-    printModal.classList.add('hidden');
-  });
+      // Hide modal
+      printCancel.addEventListener('click', () => {
+        printModal.classList.add('hidden');
+      });
 
-  // Handle print
-  printConfirm.addEventListener('click', () => {
-    const ip2m1_1 = document.getElementById('print-ip2m1-1').checked;
-    const ip2m1_2 = document.getElementById('print-ip2m1-2').checked;
-    const ip3m2 = document.getElementById('print-ip3m2').checked;
+      // Handle print
+      printConfirm.addEventListener('click', () => {
+        const ip2m1_1 = document.getElementById('print-ip2m1-1').checked;
+        const ip2m1_2 = document.getElementById('print-ip2m1-2').checked;
+        const ip3m2 = document.getElementById('print-ip3m2').checked;
 
-    if (!ip2m1_1 && !ip2m1_2 && !ip3m2) {
-      alert('Please select at least one section to print.');
-      return;
-    }
+        if (!ip2m1_1 && !ip2m1_2 && !ip3m2) {
+          alert('Please select at least one section to print.');
+          return;
+        }
 
-    // Create print content
-    const printContent = document.createElement('div');
-    printContent.id = 'print-content';
-    
-    // Add header
-    const programmeName = document.getElementById('programme').value || 'Programme';
-    const programmeDate = document.getElementById('date').value || 'Date';
-    const organizer = document.getElementById('organizer').value || 'Organizer';
-    
-    printContent.innerHTML = `
-      <div class="print-header">
-        <h1 class="print-title">SocialSync Official Report</h1>
-        <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
-      </div>
-    `;
+        // Create print content
+        const printContent = document.createElement('div');
+        printContent.id = 'print-content';
+        
+        // Add header
+        const programmeName = document.getElementById('programme').value || 'Programme';
+        const programmeDate = document.getElementById('date').value || 'Date';
+        const organizer = document.getElementById('organizer').value || 'Organizer';
+        
+        printContent.innerHTML = `
+          <div class="print-header">
+            <h1 class="print-title">SocialSync Official Report</h1>
+            <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
+          </div>
+        `;
 
-    // Function to create Q&A field
-    function createQAField(question, answer) {
-      if (!answer) return '';
-      return `
-        <div class="print-field">
-          <div class="print-label">${question}</div>
-          <div class="print-value">${answer}</div>
-        </div>
-      `;
-    }
+        // Function to create Q&A field
+        function createQAField(question, answer) {
+          if (!answer) return '';
+          return `
+            <div class="print-field">
+              <div class="print-label">${question}</div>
+              <div class="print-value">${answer}</div>
+            </div>
+          `;
+        }
 
-    // Add BULETIN DAERAH section
-    if (ip2m1_1) {
-      const section1 = document.createElement('div');
-      section1.className = 'print-section';
-      
-      // Collect VIP guests for print
-      const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
-      const vipGuestValues = Array.from(vipGuestInputs)
-        .map(input => input.value.trim())
-        .filter(value => value !== '');
-      const vipGuestText = vipGuestValues.join(', ');
-      
-      section1.innerHTML = `
-        <div class="print-section-header">
-          <h2 class="print-section-title">BULETIN DAERAH</h2>
-          <div class="print-section-subtitle">Community Engagement Report</div>
-        </div>
-        ${createQAField('Daerah', document.getElementById('daerah-dropdown').options[document.getElementById('daerah-dropdown').selectedIndex]?.text || '')}
-        ${createQAField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
-        ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
-        ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
-        ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
-        ${createQAField('Tetamu Kehormat', vipGuestText)} <!-- ✅ USE DYNAMIC VIP GUESTS -->
-        ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
-        ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
-      `;
-      printContent.appendChild(section1);
-    }
-    
-    // Add IP2M1:2 section
-    if (ip2m1_2) {
-      const section2 = document.createElement('div');
-      section2.className = 'print-section';
-      
-      // Media channels
-      let mediaItems = [];
-      if (document.getElementById('media-cetak-checkbox').checked) {
-        mediaItems.push(document.getElementById('media-cetak-example').value || 'Media Cetak (Print Media)');
-      }
-      if (document.getElementById('media-elektronik-checkbox').checked) {
-        mediaItems.push(document.getElementById('media-elektronik-example').value || 'Media Elektronik (Electronic Media)');
-      }
-      if (document.getElementById('media-digital-checkbox').checked) {
-        mediaItems.push(document.getElementById('media-digital-example').value || 'Media Digital (Digital Media)');
-      }
-      
-      // Supporting documents
-      let docItems = [];
-      if (document.getElementById('doc-kertas-kerja').checked) docItems.push('Kertas kerja program / slide pembentangan');
-      if (document.getElementById('doc-surat-mesyuarat').checked) docItems.push('Surat mesyuarat penyelarasan / jemputan program');
-      if (document.getElementById('doc-laporan-kpi').checked) docItems.push('Laporan selepas program - borang KPI IP2M1-1');
-      if (document.getElementById('doc-gambar').checked) docItems.push('Gambar program / tangkap layar media');
-      if (document.getElementById('doc-laporan-sms').checked) docItems.push('Laporan Maklum Balas dari Survey Management System (SMS)');
-      
-      section2.innerHTML = `
-        <div class="print-section-header">
-          <h2 class="print-section-title">IP2M1:2 - Performance Metrics</h2>
-          <div class="print-section-subtitle">Performance & Feedback Analysis</div>
-        </div>
-        ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
-        ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
-        ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
-        ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
-        ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
-        ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
-        ${createQAField('Total Score', document.getElementById('total-ip2m1-2').textContent + '%')}
-        ${createQAField('Supporting Documents', docItems.join(', '))}
-      `;
-      printContent.appendChild(section2);
-    }
-    
-    // Add IP3M2 section
-    if (ip3m2) {
-      const section3 = document.createElement('div');
-      section3.className = 'print-section';
-      section3.innerHTML = `
-        <div class="print-section-header">
-          <h2 class="print-section-title">IP3M2 - Economic & Media Analysis</h2>
-        </div>
-        ${createQAField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
-        ${createQAField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
-        ${createQAField('Actual Attendance', document.getElementById('ip3-actual-attendance').value)}
-        ${createQAField('Target Attendance', document.getElementById('ip3-target-attendance').value)}
-        ${createQAField('Participation Mark', document.getElementById('ip3-participation-percent').textContent)}
-        ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
-        ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
-        ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
-        ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
-        ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
-        ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
-      `;
-      printContent.appendChild(section3);
-    }
-    
-    // Add footer
-    printContent.innerHTML += `
-      <div class="print-footer">
-        SocialSync Programme Management System • Official Government Document • Confidential
-      </div>
-    `;
+        // Add BULETIN DAERAH section
+        if (ip2m1_1) {
+          const section1 = document.createElement('div');
+          section1.className = 'print-section';
+          
+          // Collect VIP guests for print
+          const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+          const vipGuestValues = Array.from(vipGuestInputs)
+            .map(input => input.value.trim())
+            .filter(value => value !== '');
+          const vipGuestText = vipGuestValues.join(', ');
+          
+          section1.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">BULETIN DAERAH</h2>
+              <div class="print-section-subtitle">Community Engagement Report</div>
+            </div>
+            ${createQAField('Daerah', document.getElementById('daerah-dropdown').options[document.getElementById('daerah-dropdown').selectedIndex]?.text || '')}
+            ${createQAField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
+            ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
+            ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
+            ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
+            ${createQAField('Tetamu Kehormat', vipGuestText)} <!-- ✅ USE DYNAMIC VIP GUESTS -->
+            ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
+            ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
+          `;
+          printContent.appendChild(section1);
+        }
+        
+        // Add IP2M1:2 section
+        if (ip2m1_2) {
+          const section2 = document.createElement('div');
+          section2.className = 'print-section';
+          
+          // Media channels
+          let mediaItems = [];
+          if (document.getElementById('media-cetak-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-cetak-example').value || 'Media Cetak (Print Media)');
+          }
+          if (document.getElementById('media-elektronik-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-elektronik-example').value || 'Media Elektronik (Electronic Media)');
+          }
+          if (document.getElementById('media-digital-checkbox').checked) {
+            mediaItems.push(document.getElementById('media-digital-example').value || 'Media Digital (Digital Media)');
+          }
+          
+          // Supporting documents
+          let docItems = [];
+          if (document.getElementById('doc-kertas-kerja').checked) docItems.push('Kertas kerja program / slide pembentangan');
+          if (document.getElementById('doc-surat-mesyuarat').checked) docItems.push('Surat mesyuarat penyelarasan / jemputan program');
+          if (document.getElementById('doc-laporan-kpi').checked) docItems.push('Laporan selepas program - borang KPI IP2M1-1');
+          if (document.getElementById('doc-gambar').checked) docItems.push('Gambar program / tangkap layar media');
+          if (document.getElementById('doc-laporan-sms').checked) docItems.push('Laporan Maklum Balas dari Survey Management System (SMS)');
+          
+          section2.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP2M1:2 - Performance Metrics</h2>
+              <div class="print-section-subtitle">Performance & Feedback Analysis</div>
+            </div>
+            ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
+            ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
+            ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
+            ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
+            ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
+            ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
+            ${createQAField('Total Score', document.getElementById('total-ip2m1-2').textContent + '%')}
+            ${createQAField('Supporting Documents', docItems.join(', '))}
+          `;
+          printContent.appendChild(section2);
+        }
+        
+        // Add IP3M2 section
+        if (ip3m2) {
+          const section3 = document.createElement('div');
+          section3.className = 'print-section';
+          section3.innerHTML = `
+            <div class="print-section-header">
+              <h2 class="print-section-title">IP3M2 - Economic & Media Analysis</h2>
+            </div>
+            ${createQAField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
+            ${createQAField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
+            ${createQAField('Actual Attendance', document.getElementById('ip3-actual-attendance').value)}
+            ${createQAField('Target Attendance', document.getElementById('ip3-target-attendance').value)}
+            ${createQAField('Participation Mark', document.getElementById('ip3-participation-percent').textContent)}
+            ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
+            ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
+            ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
+            ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
+            ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
+            ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
+          `;
+          printContent.appendChild(section3);
+        }
+        
+        // Add footer
+        printContent.innerHTML += `
+          <div class="print-footer">
+            SocialSync Programme Management System • Official Government Document • Confidential
+          </div>
+        `;
 
-    // Temporarily add to body
-    document.body.appendChild(printContent);
-    
-    // Trigger print
-    window.print();
-    
-    // Remove after print
-    setTimeout(() => {
-      document.body.removeChild(printContent);
-      printModal.classList.add('hidden');
-    }, 100);
-  });
+        // Temporarily add to body
+        document.body.appendChild(printContent);
+        
+        // Trigger print
+        window.print();
+        
+        // Remove after print
+        setTimeout(() => {
+          document.body.removeChild(printContent);
+          printModal.classList.add('hidden');
+        }, 100);
+      });
 
-  // Close modal when clicking outside
-  printModal.addEventListener('click', (e) => {
-    if (e.target === printModal) {
-      printModal.classList.add('hidden');
-    }
-  });
-}
-
-// Setup
-document.addEventListener('DOMContentLoaded', () => {
-  // Enable media example fields when checked
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('change', (e) => {
-        const exampleId = id.replace('-checkbox', '-example');
-        const exampleEl = document.getElementById(exampleId);
-        if (exampleEl) {
-          exampleEl.disabled = !e.target.checked;
+      // Close modal when clicking outside
+      printModal.addEventListener('click', (e) => {
+        if (e.target === printModal) {
+          printModal.classList.add('hidden');
         }
       });
     }
-  });
 
-  // Attach calculation listeners
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', updateIP2M1_2);
+    // Setup
+    document.addEventListener('DOMContentLoaded', () => {
+      // Enable media example fields when checked
+      ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', (e) => {
+            const exampleId = id.replace('-checkbox', '-example');
+            const exampleEl = document.getElementById(exampleId);
+            if (exampleEl) {
+              exampleEl.disabled = !e.target.checked;
+            }
+          });
+        }
+      });
+
+      // Attach calculation listeners
+      ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP2M1_2);
+        });
+      ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
+        .forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateIP3M2);
+        });
+
+      // Setup section selection
+      setupSectionSelection();
+
+      // Setup image preview
+      setupImagePreview();
+
+      // Handle form submission
+      document.getElementById('main-form').addEventListener('submit', submitForm);
+
+      // View Records → open Google Sheet
+      document.getElementById('view-records-btn').addEventListener('click', () => {
+        window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit', '_blank');
+      });
+
+      // Initialize print functionality
+      setupPrint();
+
+      // Load record count on page start
+      fetchRecordCount();
+
+      updateIP2M1_2();
+      updateIP3M2();
     });
-  ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', updateIP3M2);
-    });
-
-  // Setup section selection
-  setupSectionSelection();
-
-  // Setup image preview
-  setupImagePreview();
-
-  // Handle form submission
-  document.getElementById('main-form').addEventListener('submit', submitForm);
-
-  // View Records → open Google Sheet
-  document.getElementById('view-records-btn').addEventListener('click', () => {
-    window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit', '_blank');
-  });
-
-  // Initialize print functionality
-  setupPrint();
-
-  // Load record count on page start
-  fetchRecordCount();
-
-  updateIP2M1_2();
-  updateIP3M2();
-});
-
+  </script>
+</body>
+</html>
