@@ -978,7 +978,7 @@ async function submitForm(e) {
       document.getElementById('main-form').reset();
       // Clear image previews
       document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
-      if (selectedSection === 'ip2m1-2') {
+      if (selectedSection == 'ip2m1-2') {
         document.getElementById('supporting-docs-pdf').value = '';
       }
       
