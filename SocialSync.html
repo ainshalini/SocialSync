@@ -846,18 +846,6 @@
         reader.onerror = reject;
       });
     }
-
-// // Fetch record count from Google Sheet
-// async function fetchRecordCount() {
-//   try {
-//     // ✅ CORRECT WEB APP URL WITH ?count=1 (NO TRAILING SPACES)
-//     const response = await fetch('https://script.google.com/macros/s/AKfycbzQ-jAsS3EVPyyN6IF2ElXkrxcsnPaivezfpXCXR1oUo_AZVLJLN7eFQFuWuGFtRZfBtQ/exec?count=1');
-//     const data = await response.json();
-//     document.getElementById('record-count').textContent = `${data.count} Records`;
-//   } catch (error) {
-//     console.error("Failed to fetch record count:", error);
-//     document.getElementById('record-count').textContent = "0 Records";
-//   }
 }
 
 // Submit handler
@@ -984,7 +972,6 @@ async function submitForm(e) {
       
       updateIP2M1_2();
       updateIP3M2();
-      fetchRecordCount();
     } else {
       throw new Error('Submission failed');
     }
@@ -1293,10 +1280,6 @@ function setupImagePreview() {
 
       // Initialize print functionality
       setupPrint();
-
-      // Load record count on page start
-      fetchRecordCount();
-
       updateIP2M1_2();
       updateIP3M2();
     });
