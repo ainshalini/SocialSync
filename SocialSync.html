@@ -851,7 +851,7 @@
 async function fetchRecordCount() {
   try {
     // ✅ CORRECT WEB APP URL WITH ?count=1 (NO TRAILING SPACES)
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwDqtBiIVf4RFr9NY8WhMyTLn5CNz2MIwh7f9cQK6fxG8mWeFc5AdnDV_Snww6RNkCpQQ/exec?count=1');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbyeehmsM1puyR9J_MDQxDCZgQr2YOv-nXeoIUYxA1_QyvG5t9MtNQjt9i5FC4RQmBbjSw/exec?count=1');
     const data = await response.json();
     document.getElementById('record-count').textContent = `${data.count} Records`;
   } catch (error) {
@@ -964,7 +964,7 @@ async function submitForm(e) {
     }
 
     // ✅ CORRECT WEB APP URL (NO TRAILING SPACES!)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwDqtBiIVf4RFr9NY8WhMyTLn5CNz2MIwh7f9cQK6fxG8mWeFc5AdnDV_Snww6RNkCpQQ/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyeehmsM1puyR9J_MDQxDCZgQr2YOv-nXeoIUYxA1_QyvG5t9MtNQjt9i5FC4RQmBbjSw/exec';
 
     // ✅ PROPER FETCH WITH RESPONSE HANDLING
     const response = await fetch(WEB_APP_URL, {
