@@ -835,7 +835,7 @@
     // Fetch record count from Google Sheet
     async function fetchRecordCount() {
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbw_0c_POREmu55NkXK9ZE1BFPl7sMDsY9YEWfA3DKs06bZMWp5PInOxVhQpCxK72xxm0w/exec?count=1');
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxL1HAGQNU-J59mLAyK4LgyPU3cpMD0Rj7ouZtFb57MFwDXSDrLP6QXJsvsgKXKLNzUjg/exec?count=1');
         const data = await response.json();
         document.getElementById('record-count').textContent = `${data.count} Records`;
       } catch (error) {
@@ -956,7 +956,7 @@
         }
 
         // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw_0c_POREmu55NkXK9ZE1BFPl7sMDsY9YEWfA3DKs06bZMWp5PInOxVhQpCxK72xxm0w/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxL1HAGQNU-J59mLAyK4LgyPU3cpMD0Rj7ouZtFb57MFwDXSDrLP6QXJsvsgKXKLNzUjg/exec';
 
         fetch(WEB_APP_URL, {
           method: 'POST',
