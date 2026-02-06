@@ -896,6 +896,13 @@
           document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
         ].filter(Boolean).join(', ');
 
+        // Collect all Tetamu Kehormat from dynamic fields
+        const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+        const vipGuestValues = Array.from(vipGuestInputs)
+          .map(input => input.value.trim())
+          .filter(value => value !== '');
+        const vipGuestText = vipGuestValues.join(', ');
+        
         const formData = {
           programme_name: document.getElementById('programme').value,
           programme_date: document.getElementById('date').value,
@@ -985,6 +992,23 @@
         btn.innerHTML = originalHTML;
       }
     }
+
+
+// Add new VIP guest field
+function addVipGuest() {
+  const container = document.getElementById('vip-guests-container');
+  const newField = document.createElement('div');
+  newField.className = 'flex gap-2';
+  newField.innerHTML = `
+    <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
+    <button type="button" class="px-3 bg-red-100 hover:bg-red-200 rounded-lg text-red-700" onclick="this.parentElement.remove()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+      </svg>
+    </button>
+  `;
+  container.appendChild(newField);
+}
 
     // Section selection
     function setupSectionSelection() {
@@ -1115,6 +1139,14 @@
         if (ip2m1_1) {
           const section1 = document.createElement('div');
           section1.className = 'print-section';
+
+        // Collect VIP guests for print
+          const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+          const vipGuestValues = Array.from(vipGuestInputs)
+            .map(input => input.value.trim())
+            .filter(value => value !== '');
+          const vipGuestText = vipGuestValues.join(', ');
+
           section1.innerHTML = `
             <div class="print-section-header">
               <h2 class="print-section-title">BULETIN DAERAH</h2>
@@ -1125,7 +1157,7 @@
             ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
             ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
             ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
-            ${createQAField('Tetamu Kehormat', document.getElementById('ip1-tetamu').value)}
+            ${createQAField('Tetamu Kehormat', vipGuestText)} <!-- ✅ USE DYNAMIC VIP GUESTS -->
             ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
             ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
           `;
