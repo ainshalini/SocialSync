@@ -1,5 +1,3 @@
-CORRECT
-
 <!doctype html>
 <html lang="en" class="h-full">
 <head>
@@ -267,6 +265,7 @@ CORRECT
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-2 text-sm text-slate-600">
             <span class="w-2 h-2 bg-emerald-500 rounded-full pulse-dot"></span>
+            <span id="record-count">Loading...</span>
           </div>
           <!-- Print Button -->
           <button id="print-btn" class="px-4 py-2 bg-cyan-100 hover:bg-cyan-200 border border-cyan-200 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-cyan-700 no-print">
@@ -337,15 +336,15 @@ CORRECT
                 </div>
 
               <div>
-                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name</label>
-                <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name">
+                <label for="programme" class="block text-sm font-medium text-slate-700 mb-1">Programme Name *</label>
+                <input type="text" id="programme" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter programme name" required>
               </div>
               <div>
-                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date</label>
+                <label for="date" class="block text-sm font-medium text-slate-700 mb-1">Date *</label>
                 <input type="date" id="date" class="w-full px-4 py-3 rounded-lg input-style text-slate-800">
               </div>
               <div>
-                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer</label>
+                <label for="organizer" class="block text-sm font-medium text-slate-700 mb-1">Organizer *</label>
                 <input type="text" id="organizer" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Enter organizer">
               </div>
             </div>
@@ -375,15 +374,15 @@ CORRECT
                   </div>
                   <div>
                     <label for="ip1-deskripsi" class="block text-sm text-slate-700 mb-1">Deskripsi/Tujuan Program</label>
-                    <input type="text" id="ip1-deskripsi" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme descriptions an Purpose">
+                    <input type="text" name="ip1-deskripsi" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme description and purpose">
                   </div>
                   <div>
                     <label for="ip1-objektif" class="block text-sm text-slate-700 mb-1">Objektif</label>
-                    <input type="text" id="ip1-objektif" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme objectives">
+                    <input type="text" name="ip1-objektif" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme objectives">
                   </div>
                   <div>
                     <label for="ip1-impak" class="block text-sm text-slate-700 mb-1">Impak Program</label>
-                    <input type="text" id="ip1-impak" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme impact">
+                    <input type="text" name="ip1-impak" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Programme impact">
                   </div>
                 </div>
 
@@ -409,7 +408,7 @@ CORRECT
                 </div>
                 <div class="md:col-span-2">
                     <label for="ip1-pihak-media" class="block text-sm text-slate-700 mb-1">Pihak Media Yang Hadir</label>
-                    <input type="text" id="ip1-pihak-media" name="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event">
+                    <textarea id="ip1-pihak-media" name="ip1-pihak-media" rows="2" class="w-full px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Media present at the event"></textarea>
                 </div>
                 </div>
                 <!-- Gambar Program -->
@@ -819,21 +818,6 @@ CORRECT
       const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
       document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
     }
-    
-    function addVipGuest() {
-      const container = document.getElementById('vip-guests-container');
-      const newField = document.createElement('div');
-      newField.className = 'flex gap-2';
-      newField.innerHTML = `
-        <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-        <button type="button" class="px-3 bg-red-100 hover:bg-red-200 rounded-lg text-red-700" onclick="this.parentElement.remove()">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
-        </button>
-      `;
-      container.appendChild(newField);
-    }
 
     // Base64 conversion
     function fileToBase64(file) {
@@ -848,218 +832,220 @@ CORRECT
       });
     }
 
-// Submit handler
-async function submitForm(e) {
-  e.preventDefault(); // Prevent page reload
-
-  const btn = document.getElementById('submit-btn');
-  const originalHTML = btn.innerHTML;
-
-  btn.disabled = true;
-  btn.innerHTML = '<span>Saving...</span>';
-
-  try {
-    // Get selected section
-    const selectedSection = document.querySelector('.section-btn.border-cyan-400')?.dataset.section;
-    if (!selectedSection) {
-      alert('❌ Please select a report type.');
-      return;
-    }
-
-    // Combine selected media channels with examples
-    const selectedMedia = [];
-    if (document.getElementById('media-cetak-checkbox')?.checked) {
-      const example = document.getElementById('media-cetak-example')?.value.trim();
-      selectedMedia.push(`Media Cetak (Print Media): ${example || 'N/A'}`);
-    }
-    if (document.getElementById('media-elektronik-checkbox')?.checked) {
-      const example = document.getElementById('media-elektronik-example')?.value.trim();
-      selectedMedia.push(`Media Elektronik (Electronic Media): ${example || 'N/A'}`);
-    }
-    if (document.getElementById('media-digital-checkbox')?.checked) {
-      const example = document.getElementById('media-digital-example')?.value.trim();
-      selectedMedia.push(`Media Digital (Digital Media): ${example || 'N/A'}`);
-    }
-    const selectedMediaText = selectedMedia.join(', ');
-
-    // Combine selected supporting docs
-    const selectedDocs = [
-      document.getElementById('doc-kertas-kerja')?.checked ? 'Kertas kerja program / slide pembentangan' : '',
-      document.getElementById('doc-surat-mesyuarat')?.checked ? 'Surat mesyuarat penyelarasan / jemputan program' : '',
-      document.getElementById('doc-laporan-kpi')?.checked ? 'Laporan selepas program - borang KPI IP2M1-1' : '',
-      document.getElementById('doc-gambar')?.checked ? 'Gambar program / tangkap layar media' : '',
-      document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
-    ].filter(Boolean).join(', ');
-
-    // Collect all Tetamu Kehormat from dynamic fields
-    const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
-    const vipGuestValues = Array.from(vipGuestInputs)
-      .map(input => input.value.trim())
-      .filter(value => value !== '');
-    const vipGuestText = vipGuestValues.join(', ');
-
-    const formData = {
-      programme_name: document.getElementById('programme').value,
-      programme_date: document.getElementById('date').value,
-      organizer: document.getElementById('organizer').value,
-      daerah: document.getElementById('daerah-dropdown')?.value || '',
-      venue_capacity: document.getElementById('ip1-tempat')?.value || '',
-      description: document.getElementById('ip1-deskripsi')?.value || '',
-      objective: document.getElementById('ip1-objektif')?.value || '',
-      impact: document.getElementById('ip1-impak')?.value || '',
-      vip_guest: vipGuestText,
-      total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
-      selected_media_channels: selectedMediaText,
-      media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
-      crowd_size: document.getElementById('crowd-size')?.value || 0,
-      target_group: document.getElementById('target-group')?.value || 0,
-      survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
-      total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
-      selected_supporting_docs: selectedDocs,
-      ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
-      ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
-      ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
-      ip3_target_attendance: document.getElementById('ip3-target-attendance')?.value || 0,
-      ip3_participation_percent: parseFloat(document.getElementById('ip3-participation-percent')?.textContent) || 0,
-      ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
-      ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
-      ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
-      revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
-      modal_rm: document.getElementById('ip3-modal')?.value || 0,
-      roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
-    };
-
-    // Process images based on selected section
-    const imageFiles = {
-      'ip2m1-1': document.getElementById('ip2m1-1-images')?.files || [],
-      'ip2m1-2': document.getElementById('ip2m1-2-images')?.files || [],
-      'ip3m2': document.getElementById('ip3m2-images')?.files || []
-    };
-    
-    const images = [];
-    const selectedImages = imageFiles[selectedSection] || [];
-    for (let i = 0; i < selectedImages.length; i++) {
-      images.push(await fileToBase64(selectedImages[i]));
-    }
-
-    // Process PDFs (only for IP2M1:2)
-    const pdfs = [];
-    if (selectedSection === 'ip2m1-2') {
-      const pdfFiles = document.getElementById('supporting-docs-pdf')?.files || [];
-      for (let i = 0; i < pdfFiles.length; i++) {
-        pdfs.push(await fileToBase64(pdfFiles[i]));
+    // Fetch record count from Google Sheet
+    async function fetchRecordCount() {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxL1HAGQNU-J59mLAyK4LgyPU3cpMD0Rj7ouZtFb57MFwDXSDrLP6QXJsvsgKXKLNzUjg/exec?count=1');
+        const data = await response.json();
+        document.getElementById('record-count').textContent = `${data.count} Records`;
+      } catch (error) {
+        console.error("Failed to fetch record count:", error);
+        document.getElementById('record-count').textContent = "0 Records";
       }
     }
 
-    // ✅ CORRECT WEB APP URL (NO TRAILING SPACES!)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxL1HAGQNU-J59mLAyK4LgyPU3cpMD0Rj7ouZtFb57MFwDXSDrLP6QXJsvsgKXKLNzUjg/exec';
+    // Submit handler
+    async function submitForm(e) {
+      e.preventDefault(); // Prevent page reload
 
-    // ✅ PROPER FETCH WITH RESPONSE HANDLING
-    const response = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ formData, images, pdfs })
-    });
+      const btn = document.getElementById('submit-btn');
+      const originalHTML = btn.innerHTML;
 
-    if (response.ok) {
-      alert('✅ Maklumat Telah Disimpan.');
-      document.getElementById('main-form').reset();
-      // Clear image previews
-      document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
-      if (selectedSection === 'ip2m1-2') {
-        document.getElementById('supporting-docs-pdf').value = '';
+      // Validation
+      const required = ['programme', 'date', 'organizer'];
+      for (const id of required) {
+        if (!document.getElementById(id).value.trim()) {
+          alert('❌ Please fill in Programme, Date, and Organizer.');
+          return;
+        }
       }
-      
-      updateIP2M1_2();
-      updateIP3M2();
-    } else {
-      throw new Error('Submission failed');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Saving...</span>';
+
+      try {
+        // Get selected section
+        const selectedSection = document.querySelector('.section-btn.border-cyan-400')?.dataset.section;
+        if (!selectedSection) {
+          alert('❌ Please select a report type.');
+          return;
+        }
+
+        // Combine selected media channels with examples
+        const selectedMedia = [];
+        if (document.getElementById('media-cetak-checkbox')?.checked) {
+          const example = document.getElementById('media-cetak-example')?.value.trim();
+          selectedMedia.push(`Media Cetak (Print Media): ${example || 'N/A'}`);
+        }
+        if (document.getElementById('media-elektronik-checkbox')?.checked) {
+          const example = document.getElementById('media-elektronik-example')?.value.trim();
+          selectedMedia.push(`Media Elektronik (Electronic Media): ${example || 'N/A'}`);
+        }
+        if (document.getElementById('media-digital-checkbox')?.checked) {
+          const example = document.getElementById('media-digital-example')?.value.trim();
+          selectedMedia.push(`Media Digital (Digital Media): ${example || 'N/A'}`);
+        }
+        const selectedMediaText = selectedMedia.join(', ');
+
+        // Combine selected supporting docs
+        const selectedDocs = [
+          document.getElementById('doc-kertas-kerja')?.checked ? 'Kertas kerja program / slide pembentangan' : '',
+          document.getElementById('doc-surat-mesyuarat')?.checked ? 'Surat mesyuarat penyelarasan / jemputan program' : '',
+          document.getElementById('doc-laporan-kpi')?.checked ? 'Laporan selepas program - borang KPI IP2M1-1' : '',
+          document.getElementById('doc-gambar')?.checked ? 'Gambar program / tangkap layar media' : '',
+          document.getElementById('doc-laporan-sms')?.checked ? 'Laporan Maklum Balas dari Survey Management System (SMS)' : ''
+        ].filter(Boolean).join(', ');
+
+        const formData = {
+          programme_name: document.getElementById('programme').value,
+          programme_date: document.getElementById('date').value,
+          organizer: document.getElementById('organizer').value,
+          daerah: document.getElementById('daerah-dropdown')?.value || '', // 👈 NEW DAERAH FIELD
+          ip2m1_category: document.getElementById('ip1-category')?.value || '',
+          venue_capacity: document.getElementById('ip1-tempat')?.value || '',
+          description: document.getElementById('ip1-deskripsi')?.value || '',
+          objective: document.getElementById('ip1-objektif')?.value || '',
+          impact: document.getElementById('ip1-impak')?.value || '',
+          vip_guest: document.getElementById('ip1-tetamu')?.value || '',
+          total_attendance: document.getElementById('ip1-bil-tetamu')?.value || '',
+          media_present: document.getElementById('ip1-pihak-media')?.value || '',
+
+          selected_media_channels: selectedMediaText,
+          media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
+
+          crowd_size: document.getElementById('crowd-size')?.value || 0,
+          target_group: document.getElementById('target-group')?.value || 0,
+          survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
+          total_ip2m1_score: parseFloat(document.getElementById('total-ip2m1-2')?.textContent) || 0,
+
+          selected_supporting_docs: selectedDocs,
+
+          ip3_media_list: document.getElementById('ip3-media-list')?.value || '',
+          ip3_media_percent: parseFloat(document.getElementById('ip3-media-percent')?.textContent) || 0,
+          ip3_actual_attendance: document.getElementById('ip3-actual-attendance')?.value || 0,
+          ip3_target_attendance: document.getElementById('ip3-target-attendance')?.value || 0,
+          ip3_participation_percent: parseFloat(document.getElementById('ip3-participation-percent')?.textContent) || 0,
+          ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
+          ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
+          ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
+          revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
+          modal_rm: document.getElementById('ip3-modal')?.value || 0,
+          roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
+        };
+
+        // Process images based on selected section
+        const imageFiles = {
+          'ip2m1-1': document.getElementById('ip2m1-1-images')?.files || [],
+          'ip2m1-2': document.getElementById('ip2m1-2-images')?.files || [],
+          'ip3m2': document.getElementById('ip3m2-images')?.files || []
+        };
+        
+        const images = [];
+        const selectedImages = imageFiles[selectedSection] || [];
+        for (let i = 0; i < selectedImages.length; i++) {
+          images.push(await fileToBase64(selectedImages[i]));
+        }
+
+        // Process PDFs (only for IP2M1:2)
+        const pdfs = [];
+        if (selectedSection === 'ip2m1-2') {
+          const pdfFiles = document.getElementById('supporting-docs-pdf')?.files || [];
+          for (let i = 0; i < pdfFiles.length; i++) {
+            pdfs.push(await fileToBase64(pdfFiles[i]));
+          }
+        }
+
+        // 🔥 REPLACE WITH YOUR ACTUAL WEB APP URL
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxL1HAGQNU-J59mLAyK4LgyPU3cpMD0Rj7ouZtFb57MFwDXSDrLP6QXJsvsgKXKLNzUjg/exec';
+
+        fetch(WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ formData, images, pdfs })
+        });
+
+        setTimeout(() => {
+          alert('✅ Maklumat Telah Disimpan.');
+          document.getElementById('main-form').reset();
+          // Clear image previews
+          document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
+          if (selectedSection === 'ip2m1-2') {
+            document.getElementById('supporting-docs-pdf').value = '';
+          }
+          updateIP2M1_2();
+          updateIP3M2();
+          fetchRecordCount();
+        }, 500);
+      } catch (err) {
+        console.error(err);
+        alert('⚠️ Submission may have failed. Check browser console.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
     }
-  } catch (err) {
-    console.error(err);
-    alert('⚠️ Submission may have failed. Check browser console.');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = originalHTML;
-  }
-}
 
-// Add new VIP guest field
-function addVipGuest() {
-  const container = document.getElementById('vip-guests-container');
-  const newField = document.createElement('div');
-  newField.className = 'flex gap-2';
-  newField.innerHTML = `
-    <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-    <button type="button" class="px-3 bg-red-100 hover:bg-red-200 rounded-lg text-red-700" onclick="this.parentElement.remove()">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-      </svg>
-    </button>
-  `;
-  container.appendChild(newField);
-}
+    // Section selection
+    function setupSectionSelection() {
+      const sectionBtns = document.querySelectorAll('.section-btn');
+      const form = document.getElementById('main-form');
+      const sections = {
+        'ip2m1-1': document.getElementById('section-ip2m1-1'),
+        'ip2m1-2': document.getElementById('section-ip2m1-2'),
+        'ip3m2': document.getElementById('section-ip3m2')
+      };
 
-// Section selection
-function setupSectionSelection() {
-  const sectionBtns = document.querySelectorAll('.section-btn');
-  const form = document.getElementById('main-form');
-  const sections = {
-    'ip2m1-1': document.getElementById('section-ip2m1-1'),
-    'ip2m1-2': document.getElementById('section-ip2m1-2'),
-    'ip3m2': document.getElementById('section-ip3m2')
-  };
-
-  sectionBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active state from all buttons
-      sectionBtns.forEach(b => b.classList.remove('border-cyan-400', 'bg-cyan-50'));
-      
-      // Add active state to clicked button
-      btn.classList.add('border-cyan-400', 'bg-cyan-50');
-      
-      // Show form and selected section
-      form.classList.remove('hidden');
-      Object.values(sections).forEach(section => section.classList.add('hidden'));
-      const sectionId = btn.dataset.section;
-      if (sections[sectionId]) {
-        sections[sectionId].classList.remove('hidden');
-      }
-    });
-  });
-}
-
-// Image preview
-function setupImagePreview() {
-  const imageInputs = [
-    { input: 'ip2m1-1-images', preview: 'ip2m1-1-image-preview' },
-    { input: 'ip2m1-2-images', preview: 'ip2m1-2-image-preview' },
-    { input: 'ip3m2-images', preview: 'ip3m2-image-preview' }
-  ];
-
-  imageInputs.forEach(({ input, preview }) => {
-    const inputEl = document.getElementById(input);
-    if (inputEl) {
-      inputEl.addEventListener('change', (e) => {
-        const previewEl = document.getElementById(preview);
-        previewEl.innerHTML = '';
-        Array.from(e.target.files).forEach(file => {
-          if (!file.type.match('image.*')) return;
-          const reader = new FileReader();
-          reader.onload = ev => {
-            const img = document.createElement('img');
-            img.src = ev.target.result;
-            img.className = 'w-full h-24 object-cover rounded-lg border border-slate-200';
-            previewEl.appendChild(img);
-          };
-          reader.readAsDataURL(file);
+      sectionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active state from all buttons
+          sectionBtns.forEach(b => b.classList.remove('border-cyan-400', 'bg-cyan-50'));
+          
+          // Add active state to clicked button
+          btn.classList.add('border-cyan-400', 'bg-cyan-50');
+          
+          // Show form and selected section
+          form.classList.remove('hidden');
+          Object.values(sections).forEach(section => section.classList.add('hidden'));
+          const sectionId = btn.dataset.section;
+          if (sections[sectionId]) {
+            sections[sectionId].classList.remove('hidden');
+          }
         });
       });
     }
-  });
-}
 
-// Print functionality
+    // Image preview
+    function setupImagePreview() {
+      const imageInputs = [
+        { input: 'ip2m1-1-images', preview: 'ip2m1-1-image-preview' },
+        { input: 'ip2m1-2-images', preview: 'ip2m1-2-image-preview' },
+        { input: 'ip3m2-images', preview: 'ip3m2-image-preview' }
+      ];
+
+      imageInputs.forEach(({ input, preview }) => {
+        const inputEl = document.getElementById(input);
+        if (inputEl) {
+          inputEl.addEventListener('change', (e) => {
+            const previewEl = document.getElementById(preview);
+            previewEl.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+              if (!file.type.match('image.*')) return;
+              const reader = new FileReader();
+              reader.onload = ev => {
+                const img = document.createElement('img');
+                img.src = ev.target.result;
+                img.className = 'w-full h-24 object-cover rounded-lg border border-slate-200';
+                previewEl.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+            });
+          });
+        }
+      });
+    }
+
+    // Print functionality
     function setupPrint() {
       const printBtn = document.getElementById('print-btn');
       const printModal = document.getElementById('print-modal');
@@ -1114,18 +1100,21 @@ function setupImagePreview() {
           `;
         }
 
+        // Function to create checklist
+        function createChecklist(items) {
+          if (!items || items.length === 0) return '';
+          let html = '<div class="print-checklist">';
+          items.forEach(item => {
+            html += `<div class="print-checklist-item"><div class="print-checkbox checked"></div><div class="print-value">${item}</div></div>`;
+          });
+          html += '</div>';
+          return html;
+        }
+
         // Add BULETIN DAERAH section
         if (ip2m1_1) {
           const section1 = document.createElement('div');
           section1.className = 'print-section';
-          
-          // Collect VIP guests for print
-          const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
-          const vipGuestValues = Array.from(vipGuestInputs)
-            .map(input => input.value.trim())
-            .filter(value => value !== '');
-          const vipGuestText = vipGuestValues.join(', ');
-          
           section1.innerHTML = `
             <div class="print-section-header">
               <h2 class="print-section-title">BULETIN DAERAH</h2>
@@ -1136,7 +1125,7 @@ function setupImagePreview() {
             ${createQAField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
             ${createQAField('Objektif', document.getElementById('ip1-objektif').value)}
             ${createQAField('Impak Program', document.getElementById('ip1-impak').value)}
-            ${createQAField('Tetamu Kehormat', vipGuestText)} <!-- ✅ USE DYNAMIC VIP GUESTS -->
+            ${createQAField('Tetamu Kehormat', document.getElementById('ip1-tetamu').value)}
             ${createQAField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
             ${createQAField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
           `;
@@ -1272,7 +1261,7 @@ function setupImagePreview() {
 
       // Handle form submission
       document.getElementById('main-form').addEventListener('submit', submitForm);
-      
+
       // View Records → open Google Sheet
       document.getElementById('view-records-btn').addEventListener('click', () => {
         window.open('https://docs.google.com/spreadsheets/d/1THGepNFhL6xFAoktLJqLZnKTifbjrg4xSeR-1pMa9cA/edit', '_blank');
@@ -1280,6 +1269,10 @@ function setupImagePreview() {
 
       // Initialize print functionality
       setupPrint();
+
+      // Load record count on page start
+      fetchRecordCount();
+
       updateIP2M1_2();
       updateIP3M2();
     });
