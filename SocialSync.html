@@ -951,7 +951,6 @@
 
         setTimeout(() => {
           alert('✅ Maklumat Telah Disimpan.');
-          showPrintButton();
           document.getElementById('main-form').reset();
           // Clear image previews
           document.querySelectorAll('[id$="-image-preview"]').forEach(el => el.innerHTML = '');
@@ -1046,111 +1045,6 @@ function addVipGuest() {
       });
     }
 
-        // Print user answers
-    function printUserAnswers() {
-      const selectedSection = document.querySelector('.section-btn.border-cyan-400')?.dataset.section;
-      if (!selectedSection) return;
-
-      const printContent = document.createElement('div');
-      printContent.id = 'print-answers-content';
-      
-      const programmeName = document.getElementById('programme').value || 'Programme';
-      const programmeDate = document.getElementById('date').value || 'Date';
-      const organizer = document.getElementById('organizer').value || 'Organizer';
-      const daerah = document.getElementById('daerah-dropdown').options[document.getElementById('daerah-dropdown').selectedIndex]?.text || 'Daerah';
-      
-      printContent.innerHTML = `
-        <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #1e40af;">
-          <h1 style="font-size:22px;font-weight:bold;color:#1e40af;margin:10px 0 5px;">SocialSync - User Submission</h1>
-          <p style="color:#64748b;font-size:14px;">${programmeName} • ${programmeDate} • ${organizer}</p>
-        </div>
-      `;
-
-      function createAnswerField(question, answer) {
-        if (!answer || answer === '0' || answer === '') return '';
-        return `<div style="margin-bottom:12px;"><strong>${question}</strong><br><span>${answer}</span></div>`;
-      }
-
-      if (selectedSection === 'ip2m1-1') {
-        const vipGuestInputs = document.querySelectorAll('input[name="vip_guest[]"]');
-        const vipGuestValues = Array.from(vipGuestInputs).map(input => input.value.trim()).filter(value => value !== '');
-        
-        const sectionHTML = `
-          <div style="margin-bottom:25px;padding:20px;border:1px solid #cbd5e1;background:white;">
-            <h2 style="font-size:18px;font-weight:bold;color:#1e40af;margin-bottom:15px;">BULETIN DAERAH</h2>
-            ${createAnswerField('Daerah', daerah)}
-            ${createAnswerField('Tempat dan Kapasiti', document.getElementById('ip1-tempat').value)}
-            ${createAnswerField('Deskripsi/Tujuan Program', document.getElementById('ip1-deskripsi').value)}
-            ${createAnswerField('Objektif', document.getElementById('ip1-objektif').value)}
-            ${createAnswerField('Impak Program', document.getElementById('ip1-impak').value)}
-            ${createAnswerField('Tetamu Kehormat', vipGuestValues.join(', '))}
-            ${createAnswerField('Bilangan Tetamu Yang Hadir', document.getElementById('ip1-bil-tetamu').value)}
-            ${createAnswerField('Pihak Media Yang Hadir', document.getElementById('ip1-pihak-media').value)}
-          </div>
-        `;
-        printContent.innerHTML += sectionHTML;
-      }
-
-      if (selectedSection === 'ip2m1-2') {
-        let mediaItems = [];
-        if (document.getElementById('media-cetak-checkbox').checked) mediaItems.push(document.getElementById('media-cetak-example').value || 'Media Cetak');
-        if (document.getElementById('media-elektronik-checkbox').checked) mediaItems.push(document.getElementById('media-elektronik-example').value || 'Media Elektronik');
-        if (document.getElementById('media-digital-checkbox').checked) mediaItems.push(document.getElementById('media-digital-example').value || 'Media Digital');
-        
-        let docItems = [];
-        if (document.getElementById('doc-kertas-kerja').checked) docItems.push('Kertas kerja program');
-        if (document.getElementById('doc-surat-mesyuarat').checked) docItems.push('Surat mesyuarat');
-        if (document.getElementById('doc-laporan-kpi').checked) docItems.push('Laporan KPI');
-        if (document.getElementById('doc-gambar').checked) docItems.push('Gambar program');
-        if (document.getElementById('doc-laporan-sms').checked) docItems.push('Laporan SMS');
-        
-        const sectionHTML = `
-          <div style="margin-bottom:25px;padding:20px;border:1px solid #cbd5e1;background:white;">
-            <h2 style="font-size:18px;font-weight:bold;color:#1e40af;margin-bottom:15px;">IP2M1:2 - Performance Metrics</h2>
-            ${createAnswerField('Information Sharing Channels', mediaItems.join(', '))}
-            ${createAnswerField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
-            ${createAnswerField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
-            ${createAnswerField('Crowd Size', document.getElementById('crowd-size').value)}
-            ${createAnswerField('Target Group', document.getElementById('target-group').value)}
-            ${createAnswerField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
-            ${createAnswerField('Total Score', document.getElementById('total-ip2m1-2').textContent + '%')}
-            ${createAnswerField('Supporting Documents', docItems.join(', '))}
-          </div>
-        `;
-        printContent.innerHTML += sectionHTML;
-      }
-
-      if (selectedSection === 'ip3m2') {
-        const sectionHTML = `
-          <div style="margin-bottom:25px;padding:20px;border:1px solid #cbd5e1;background:white;">
-            <h2 style="font-size:18px;font-weight:bold;color:#1e40af;margin-bottom:15px;">IP3M2 - Economic & Media Analysis</h2>
-            ${createAnswerField('List of Media', document.getElementById('ip3-media-list').value.replace(/\n/g, ', '))}
-            ${createAnswerField('Media Coverage Percentage', document.getElementById('ip3-media-percent').textContent)}
-            ${createAnswerField('Actual Attendance', document.getElementById('ip3-actual-attendance').value)}
-            ${createAnswerField('Target Attendance', document.getElementById('ip3-target-attendance').value)}
-            ${createAnswerField('Participation Mark', document.getElementById('ip3-participation-percent').textContent)}
-            ${createAnswerField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
-            ${createAnswerField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
-            ${createAnswerField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
-            ${createAnswerField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
-            ${createAnswerField('Modal (RM)', document.getElementById('ip3-modal').value)}
-            ${createAnswerField('ROI', document.getElementById('ip3-roi-percent').textContent)}
-          </div>
-        `;
-        printContent.innerHTML += sectionHTML;
-      }
-
-      printContent.innerHTML += `<div style="margin-top:40px;text-align:center;color:#64748b;font-size:11px;">SocialSync Programme Management System</div>`;
-
-      document.body.appendChild(printContent);
-      window.print();
-      setTimeout(() => document.body.removeChild(printContent), 100);
-    }
-
-    function showPrintButton() {
-      const printBtn = document.getElementById('print-answers-btn');
-      if (printBtn) printBtn.classList.remove('hidden');
-    }
     // Print functionality
     function setupPrint() {
       const printBtn = document.getElementById('print-btn');
@@ -1375,9 +1269,6 @@ function addVipGuest() {
 
       // Handle form submission
       document.getElementById('main-form').addEventListener('submit', submitForm);
-
-      // DOMContentLoaded setup
-      document.getElementById('print-answers-btn')?.addEventListener('click', printUserAnswers);
 
       // View Records → open Google Sheet
       document.getElementById('view-records-btn').addEventListener('click', () => {
