@@ -265,17 +265,6 @@
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-2 text-sm text-slate-600">
           </div>
-          <!-- Print Button -->
-          <button id="print-btn" class="px-4 py-2 bg-cyan-100 hover:bg-cyan-200 border border-cyan-200 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-cyan-700 no-print">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-            </svg>
-            Print Report
-          </button>
-          <button id="view-records-btn" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-700 no-print">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
             View Records
           </button>
         </div>
@@ -731,41 +720,6 @@
     </main>
   </div>
 
-  <!-- Print Modal -->
-  <div id="print-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4 no-print">
-    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-      <div class="p-6 border-b border-slate-200">
-        <h3 class="text-lg font-semibold text-slate-800">Select Sections to Print</h3>
-        <p class="text-sm text-slate-600 mt-1">Choose which report sections you want to include.</p>
-      </div>
-      <div class="p-6 space-y-4">
-        <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip2m1-1" class="w-5 h-5 rounded checkbox-custom">
-          <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">BULETIN DAERAH</span>
-        </label>
-        <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip2m1-2" class="w-5 h-5 rounded checkbox-custom">
-          <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP2M1:2 - Performance Metrics</span>
-        </label>
-        <label class="flex items-center gap-3 cursor-pointer group">
-          <input type="checkbox" id="print-ip3m2" class="w-5 h-5 rounded checkbox-custom">
-          <span class="text-slate-700 font-medium group-hover:text-slate-900 transition-colors">IP3M2 - Economic & Media Analysis</span>
-        </label>
-      </div>
-      <div class="p-6 border-t border-slate-200 flex gap-3">
-        <button id="print-cancel" class="flex-1 px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 font-medium">
-          Cancel
-        </button>
-        <button id="print-confirm" class="flex-1 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-white font-medium flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-          </svg>
-          Print
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Live Logic -->
   <script>
     function num(val) {
@@ -1045,72 +999,6 @@ function addVipGuest() {
       });
     }
 
-    // Print functionality
-    function setupPrint() {
-      const printBtn = document.getElementById('print-btn');
-      const printModal = document.getElementById('print-modal');
-      const printCancel = document.getElementById('print-cancel');
-      const printConfirm = document.getElementById('print-confirm');
-
-      // Show modal
-      printBtn.addEventListener('click', () => {
-        printModal.classList.remove('hidden');
-      });
-
-      // Hide modal
-      printCancel.addEventListener('click', () => {
-        printModal.classList.add('hidden');
-      });
-
-      // Handle print
-      printConfirm.addEventListener('click', () => {
-        const ip2m1_1 = document.getElementById('print-ip2m1-1').checked;
-        const ip2m1_2 = document.getElementById('print-ip2m1-2').checked;
-        const ip3m2 = document.getElementById('print-ip3m2').checked;
-
-        if (!ip2m1_1 && !ip2m1_2 && !ip3m2) {
-          alert('Please select at least one section to print.');
-          return;
-        }
-
-        // Create print content
-        const printContent = document.createElement('div');
-        printContent.id = 'print-content';
-        
-        // Add header
-        const programmeName = document.getElementById('programme').value || 'Programme';
-        const programmeDate = document.getElementById('date').value || 'Date';
-        const organizer = document.getElementById('organizer').value || 'Organizer';
-        
-        printContent.innerHTML = `
-          <div class="print-header">
-            <h1 class="print-title">SocialSync Official Report</h1>
-            <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
-          </div>
-        `;
-
-        // Function to create Q&A field
-        function createQAField(question, answer) {
-          if (!answer) return '';
-          return `
-            <div class="print-field">
-              <div class="print-label">${question}</div>
-              <div class="print-value">${answer}</div>
-            </div>
-          `;
-        }
-
-        // Function to create checklist
-        function createChecklist(items) {
-          if (!items || items.length === 0) return '';
-          let html = '<div class="print-checklist">';
-          items.forEach(item => {
-            html += `<div class="print-checklist-item"><div class="print-checkbox checked"></div><div class="print-value">${item}</div></div>`;
-          });
-          html += '</div>';
-          return html;
-        }
-
         // Add BULETIN DAERAH section
         if (ip2m1_1) {
           const section1 = document.createElement('div');
@@ -1276,7 +1164,6 @@ function addVipGuest() {
       });
 
       // Initialize print functionality
-      setupPrint();
       updateIP2M1_2();
       updateIP3M2();
     });
