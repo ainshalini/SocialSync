@@ -1062,11 +1062,44 @@ function addVipGuest() {
         printModal.classList.add('hidden');
       });
 
+      // Handle print
+      printConfirm.addEventListener('click', () => {
+        const ip2m1_1 = document.getElementById('print-ip2m1-1').checked;
+        const ip2m1_2 = document.getElementById('print-ip2m1-2').checked;
+        const ip3m2 = document.getElementById('print-ip3m2').checked;
+
+        if (!ip2m1_1 && !ip2m1_2 && !ip3m2) {
+          alert('Please select at least one section to print.');
+          return;
+        }
+
+        // Create print content
+        const printContent = document.createElement('div');
+        printContent.id = 'print-content';
+        
         // Add header
         const programmeName = document.getElementById('programme').value || 'Programme';
         const programmeDate = document.getElementById('date').value || 'Date';
         const organizer = document.getElementById('organizer').value || 'Organizer';
         
+        printContent.innerHTML = `
+          <div class="print-header">
+            <h1 class="print-title">SocialSync Official Report</h1>
+            <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
+          </div>
+        `;
+
+        // Function to create Q&A field
+        function createQAField(question, answer) {
+          if (!answer) return '';
+          return `
+            <div class="print-field">
+              <div class="print-label">${question}</div>
+              <div class="print-value">${answer}</div>
+            </div>
+          `;
+        }
+
         // Function to create checklist
         function createChecklist(items) {
           if (!items || items.length === 0) return '';
@@ -1181,7 +1214,16 @@ function addVipGuest() {
 
         // Temporarily add to body
         document.body.appendChild(printContent);
-      };
+        
+        // Trigger print
+        window.print();
+        
+        // Remove after print
+        setTimeout(() => {
+          document.body.removeChild(printContent);
+          printModal.classList.add('hidden');
+        }, 100);
+      });
 
       // Close modal when clicking outside
       printModal.addEventListener('click', (e) => {
@@ -1189,6 +1231,7 @@ function addVipGuest() {
           printModal.classList.add('hidden');
         }
       });
+    }
 
     // Setup
     document.addEventListener('DOMContentLoaded', () => {
