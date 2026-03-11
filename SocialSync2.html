@@ -415,22 +415,12 @@ body {
               </div>
 
               <!-- Section B: Survey -->
-              <!-- Satisfaction -->
               <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
-                <h4 class="text-md font-semibold text-blue-700 mb-4">Participant Satisfaction Level</h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label for="ip3-total-respondent" class="block text-sm text-slate-700 mb-1">Total Respondent</label>
-                    <input type="number" id="ip3-total-respondent" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                  </div>
-                  <div>
-                    <label for="ip3-positive-respondent" class="block text-sm text-slate-700 mb-1">Positive Respondent</label>
-                    <input type="number" id="ip3-positive-respondent" min="0" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter number" value="0">
-                  </div>
-                </div>
-                <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
-                  <p class="text-sm text-slate-700">Percentages of Response Positively: <span id="ip3-satisfaction-percent" class="text-blue-600 font-semibold">0%</span></p>
-                  <p class="text-xs text-slate-500">(Positive Respondent / Total Respondent) × 100%</p>
+                <h4 class="text-md font-semibold text-blue-700 mb-2">B. Borang Kaji Selidik Kepuasan Pelanggan</h4>
+                <p class="text-xs text-slate-600 mb-3">Lampiran A2/Survey Management System - Program Komuniti</p>
+                <div class="p-3 bg-white rounded-lg border border-blue-200">
+                  <p class="text-sm text-slate-700 mb-1">Survey Satisfaction: <span id="survey-percent-display" class="text-cyan-600 font-semibold">0%</span></p>
+                  <p class="text-xs text-slate-500">Calculated as: (Crowd Size / Target Group) × 100%</p>
                 </div>
               </div>
 
@@ -672,11 +662,6 @@ function updateIP2M1_2() {
   else if (channels === 2) mediaCoverage = 90;
   else if (channels >= 3) mediaCoverage = 100;
   document.getElementById('media-coverage').textContent = mediaCoverage + '%';
-
-  const totalRespondent = num(document.getElementById('ip2-total-respondent').value);
-  const positiveRespondent = num(document.getElementById('ip2-positive-respondent').value);
-  const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
-  document.getElementById('ip2-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const crowdSize = num(document.getElementById('crowd-size').value);
   const targetGroup = num(document.getElementById('target-group').value);
@@ -704,10 +689,10 @@ function updateIP3M2() {
   const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
-  const target_enterpreneur_involvement = num(document.getElementById('ip3-revenue').value);
-  const actual_enterpreneur_involvement = num(document.getElementById('ip3-modal').value);
+  const revenue = num(document.getElementById('ip3-revenue').value);
+  const modal = num(document.getElementById('ip3-modal').value);
   let roi = 0;
-  if (actual_enterpreneur_involvement > 0) roi = ((targeted_enterpreneur_involvement - actual_enterpreneur_involvement) / actual_enterpreneur_involvement) * 100;
+  if (modal > 0) roi = ((revenue - modal) / modal) * 100;
   const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
   document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
 }
@@ -788,9 +773,6 @@ async function submitForm(e) {
       media_present: document.getElementById('ip1-pihak-media')?.value || '',
       selected_media_channels: selectedMediaText,
       media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
-      ip2_total_respondent: document.getElementById('ip2-total-respondent')?.value || 0,
-      ip2_positive_respondent: document.getElementById('ip2-positive-respondent')?.value || 0,
-      ip2_satisfaction_percent: parseFloat(document.getElementById('ip2-satisfaction-percent')?.textContent) || 0,
       crowd_size: document.getElementById('crowd-size')?.value || 0,
       target_group: document.getElementById('target-group')?.value || 0,
       survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
@@ -804,8 +786,8 @@ async function submitForm(e) {
       ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
       ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
       ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
-      targeted_enterpreneur_involvement: document.getElementById('ip3-revenue')?.value || 0,
-      actual_enterpreneur_involvement: document.getElementById('ip3-modal')?.value || 0,
+      revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
+      modal_rm: document.getElementById('ip3-modal')?.value || 0,
       roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
     };
     
@@ -828,7 +810,7 @@ async function submitForm(e) {
       }
     }
     
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyZ8hcPNFH9r4UbQnvHXQTW4YjzEEadYSFGftwTfSv25g0yC0knx2HdPF1IbCp0YP6K/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx9g_2TL4sKbyoiURxg5pnbI6ADFuIaznACc0JFQn5yt2xk3_EP9PgO7Mwoq5BLlQYiZA/exec';
     fetch(WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -1049,9 +1031,7 @@ function setupPrint() {
         </div>
         ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
         ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
-        ${createQAField('Total Respondent', document.getElementById('ip2-total-respondent').value)}
-        ${createQAField('Positive Respondent', document.getElementById('ip2-positive-respondent').value)}
-        ${createQAField('Satisfaction Percentage', document.getElementById('ip2-satisfaction-percent').textContent)}
+        ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
         ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
         ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
         ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
@@ -1077,8 +1057,8 @@ function setupPrint() {
         ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
         ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
         ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
-        ${createQAField('Targeted Enterpreneur Involvement', document.getElementById('ip3-revenue').value)}
-        ${createQAField('Actual Enterpreneur Involvement', document.getElementById('ip3-modal').value)}
+        ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
+        ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
         ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
       `;
       printContent.appendChild(section3);
@@ -1119,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-total-respondent', 'ip2-positive-respondent', 'crowd-size', 'target-group']
+  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
     .forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', updateIP2M1_2);
