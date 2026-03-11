@@ -672,6 +672,11 @@ function updateIP2M1_2() {
   else if (channels === 2) mediaCoverage = 90;
   else if (channels >= 3) mediaCoverage = 100;
   document.getElementById('media-coverage').textContent = mediaCoverage + '%';
+
+  const totalRespondent = num(document.getElementById('ip2-total-respondent').value);
+  const positiveRespondent = num(document.getElementById('ip2-positive-respondent').value);
+  const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
+  document.getElementById('ip2-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const crowdSize = num(document.getElementById('crowd-size').value);
   const targetGroup = num(document.getElementById('target-group').value);
@@ -1041,7 +1046,9 @@ function setupPrint() {
         </div>
         ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
         ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
-        ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
+        ${createQAField('Total Respondent', document.getElementById('ip2-total-respondent').value)}
+        ${createQAField('Positive Respondent', document.getElementById('ip2-positive-respondent').value)}
+        ${createQAField('Satisfaction Percentage', document.getElementById('ip2-satisfaction-percent').textContent)}
         ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
         ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
         ${createQAField('Participant Involvement Mark', document.getElementById('participant-percent').textContent)}
@@ -1109,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
+  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-positive-respondent', 'crowd-size', 'target-group']
     .forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', updateIP2M1_2);
