@@ -293,7 +293,7 @@ body {
                 <div id="organizer-container" class="space-y-2">
                   <div class="flex gap-2">
                     <input type="text" name="organizer[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama pengelola">
-                    <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all" onclick="addOrganizer()">
+                    <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all" onclick="addOrganizer()" title="Add organizer">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                       </svg>
@@ -759,13 +759,11 @@ async function submitForm(e) {
       .map(input => input.value.trim())
       .filter(value => value !== '');
     const organizerText = organizerValues.join(', ');
-
-
     
     const formData = {
       programme_name: document.getElementById('programme').value,
       programme_date: document.getElementById('date').value,
-      organizer: oganizerText,
+      organizer: organizerText,
       daerah: document.getElementById('daerah-dropdown')?.value || '',
       venue_capacity: document.getElementById('ip1-tempat')?.value || '',
       objective: document.getElementById('ip1-objektif')?.value || '',
@@ -812,7 +810,7 @@ async function submitForm(e) {
       }
     }
     
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN5nRI9Pr8cS2pYvDeNJC0J4nZauIb5lOsEkNcNHw67v0JJQjWHvBA7xbqla0FVRHkKQ/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxsqJ3ePkzmYzkfusskZXjemzr2qrE4TFtzG_K6MAi-MbmmkbhRrRJWMP6QRt4by0Mi/exec';
     fetch(WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -845,20 +843,6 @@ function addVipGuest() {
   newField.className = 'flex gap-2';
   newField.innerHTML = `
     <input type="text" name="vip_guest[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama tetamu kehormat">
-    <button type="button" class="px-3 bg-red-100 hover:bg-red-200 rounded-lg text-red-700" onclick="this.parentElement.remove()">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-      </svg>
-    </button>
-  `;
-  container.appendChild(newField);
-}
-function addOrganizer() {
-  const container = document.getElementById('pengelola-container');
-  const newField = document.createElement('div');
-  newField.className = 'flex gap-2';
-  newField.innerHTML = `
-    <input type="text" name="organizer" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama Pengelola">
     <button type="button" class="px-3 bg-red-100 hover:bg-red-200 rounded-lg text-red-700" onclick="this.parentElement.remove()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -964,11 +948,7 @@ function setupPrint() {
     
     const programmeName = document.getElementById('programme').value || 'Programme';
     const programmeDate = document.getElementById('date').value || 'Date';
-    const organizerInputs = document.querySelectorAll('input[name="organizer[]"]');
-    const organizerValues = Array.from(vipGuestInputs)
-      .map(input => input.value.trim())
-      .filter(value => value !== '');
-    const organizerText = organizerValues.join(', ');
+    const organizer = document.querySelector('input[name="organizer[]"]')?.value || 'Organizer';
     
     printContent.innerHTML = `
       <div class="print-header">
@@ -1135,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupImagePreview();
   document.getElementById('main-form').addEventListener('submit', submitForm);
   document.getElementById('view-records-btn').addEventListener('click', () => {
-    window.open('https://docs.google.com/spreadsheets/d/1z8Jk-cnL_D4hl0idgtf_S9LHMcQSTjpKU268ttMa25c/edit', '_blank');
+    window.open('https://docs.google.com/spreadsheets/d/1KNSvYqNMzTutX3gClleFDvR896jr_OI5hST0DwrEW94/edit', '_blank');
   });
   setupPrint();
   updateIP2M1_2();
