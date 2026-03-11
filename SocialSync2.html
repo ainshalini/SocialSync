@@ -293,7 +293,7 @@ body {
                 <div id="organizer-container" class="space-y-2">
                   <div class="flex gap-2">
                     <input type="text" name="organizer[]" class="flex-1 px-4 py-3 rounded-lg input-style text-slate-800 placeholder-slate-400" placeholder="Nama pengelola">
-                    <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all" onclick="addOrganizer()" title="Add organizer">
+                    <button type="button" class="px-3 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 transition-all" onclick="addOrganizer()">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                       </svg>
@@ -853,7 +853,7 @@ function addVipGuest() {
 }
 
 function addOrganizer() {
-  const container = document.getElementById('organizer-container');
+  const container = document.getElementById('organizer-container, organizerText');
   const newField = document.createElement('div');
   newField.className = 'flex gap-2';
   newField.innerHTML = `
@@ -948,12 +948,17 @@ function setupPrint() {
     
     const programmeName = document.getElementById('programme').value || 'Programme';
     const programmeDate = document.getElementById('date').value || 'Date';
-    const organizer = document.querySelector('input[name="organizer[]"]')?.value || 'Organizer';
+    const organizerInputs = document.querySelectorAll('input[name="organizer[]"]');
+    const organizerValues = Array.from(organizerInputs)
+      .map(input => input.value.trim())
+      .filter(value => value !== '');
+    const organizerText = organizerValues.join(', ');
+      
     
     printContent.innerHTML = `
       <div class="print-header">
         <h1 class="print-title">SocialSync Official Report</h1>
-        <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer}</p>
+        <p class="print-subtitle">${programmeName} • ${programmeDate} • ${organizer, organizerText}</p>
       </div>
     `;
     
