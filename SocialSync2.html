@@ -704,10 +704,10 @@ function updateIP3M2() {
   const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
-  const revenue = num(document.getElementById('ip3-revenue').value);
-  const modal = num(document.getElementById('ip3-modal').value);
+  const target_enterpreneur_involvement = num(document.getElementById('ip3-revenue').value);
+  const actual_enterpreneur_involvement = num(document.getElementById('ip3-modal').value);
   let roi = 0;
-  if (modal > 0) roi = ((revenue - modal) / modal) * 100;
+  if (actual_enterpreneur_involvement > 0) roi = ((targeted_enterpreneur_involvement - actual_enterpreneur_involvement) / actual_enterpreneur_involvement) * 100;
   const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
   document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
 }
@@ -788,9 +788,9 @@ async function submitForm(e) {
       media_present: document.getElementById('ip1-pihak-media')?.value || '',
       selected_media_channels: selectedMediaText,
       media_coverage_percent: parseFloat(document.getElementById('media-coverage')?.textContent) || 0,
-      ip3_total_respondent: document.getElementById('ip2-total-respondent')?.value || 0,
-      ip3_positive_respondent: document.getElementById('ip2-positive-respondent')?.value || 0,
-      ip3_satisfaction_percent: parseFloat(document.getElementById('ip2-satisfaction-percent')?.textContent) || 0,
+      ip2_total_respondent: document.getElementById('ip2-total-respondent')?.value || 0,
+      ip2_positive_respondent: document.getElementById('ip2-positive-respondent')?.value || 0,
+      ip2_satisfaction_percent: parseFloat(document.getElementById('ip2-satisfaction-percent')?.textContent) || 0,
       crowd_size: document.getElementById('crowd-size')?.value || 0,
       target_group: document.getElementById('target-group')?.value || 0,
       survey_participation_percent: parseFloat(document.getElementById('survey-percent-display')?.textContent) || 0,
@@ -804,8 +804,8 @@ async function submitForm(e) {
       ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
       ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
       ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
-      revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
-      modal_rm: document.getElementById('ip3-modal')?.value || 0,
+      targeted_enterpreneur_involvement: document.getElementById('ip3-revenue')?.value || 0,
+      actual_enterpreneur_involvement: document.getElementById('ip3-modal')?.value || 0,
       roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
     };
     
@@ -1077,8 +1077,8 @@ function setupPrint() {
         ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
         ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
         ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
-        ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
-        ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
+        ${createQAField('Targeted Enterpreneur Involvement', document.getElementById('ip3-revenue').value)}
+        ${createQAField('Actual Enterpreneur Involvement', document.getElementById('ip3-modal').value)}
         ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
       `;
       printContent.appendChild(section3);
@@ -1119,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-positive-respondent', 'crowd-size', 'target-group']
+  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-total-respondent', 'ip2-positive-respondent', 'crowd-size', 'target-group']
     .forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', updateIP2M1_2);
