@@ -775,8 +775,8 @@ async function submitForm(e) {
     const organizerText = organizerValues.join(', ');
     
     const formData = {
-      programme_name: document.getElementById('programme').value,
-      programme_date: document.getElementById('date').value,
+      programme_name: document.getElementById('programme')?.value || '',
+      programme_date: document.getElementById('date')?.value || '',
       organizer: organizerText,
       daerah: document.getElementById('daerah-dropdown')?.value || '',
       venue_capacity: document.getElementById('ip1-tempat')?.value || '',
