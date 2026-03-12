@@ -1049,6 +1049,9 @@ function setupPrint() {
         </div>
         ${createQAField('Information Sharing Channels', mediaItems.join(', '))}
         ${createQAField('Channel Coverage Percentage', document.getElementById('media-coverage').textContent)}
+        ${createQAField('Total Respondent', document.getElementById('ip2-total-respondent').value)}
+        ${createQAField('Positive Respondent', document.getElementById('ip2-positive-respondent').value)}
+        ${createQAField('Satisfaction Percentage', document.getElementById('ip2-satisfaction-percent').textContent)}
         ${createQAField('Survey Satisfaction', document.getElementById('survey-percent-display').textContent)}
         ${createQAField('Crowd Size (Actual Attendance)', document.getElementById('crowd-size').value)}
         ${createQAField('Target Group (Capacity)', document.getElementById('target-group').value)}
