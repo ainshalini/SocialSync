@@ -1130,13 +1130,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 // Add IP2M1 satisfaction listeners
-['ip2-total-respondent', 'ip2-positive-respondent'].forEach(id => {
+['ip2-total-respondent', 'ip2-positive-respondent', 'media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'crowd-size', 'target-group']
+.forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', updateIP2M1_2);
 });
 
-// Update IP3M2 listeners to include all fields
-['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
+// FIX: Add ALL IP3M2 fields including ROI entrepreneur fields (with exact typos from your HTML)
+['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-targeted-enterpreneur-involvement', 'ip3-actual-enterprenuer-involvement']
 .forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', updateIP3M2);
