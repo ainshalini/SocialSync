@@ -578,12 +578,12 @@ body {
                 <h4 class="text-md font-semibold text-blue-700 mb-4">Economic Generation</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label for="ip3-revenue" class="block text-sm text-slate-700 mb-1">No of Targeted Enterpreneur Involvement</label>
-                    <input type="number" id="ip3-revenue" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
+                    <label for="ip3-targeted-enterpreneur-involvement" class="block text-sm text-slate-700 mb-1">No of Targeted Enterpreneur Involvement</label>
+                    <input type="number" id="ip3-targeted-enterpreneur-involvement" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
                   </div>
                   <div>
-                    <label for="ip3-modal" class="block text-sm text-slate-700 mb-1">No of Actual Enterpreneur Involvement </label>
-                    <input type="number" id="ip3-modal" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
+                    <label for="ip3-actual-enterprenuer-involvement" class="block text-sm text-slate-700 mb-1">No of Actual Enterpreneur Involvement </label>
+                    <input type="number" id="ip3-actual-enterprenuer-involvement" min="0" step="0.01" class="w-full px-4 py-3 rounded-lg input-style text-slate-800" placeholder="Enter amount" value="0">
                   </div>
                 </div>
                 <div class="mt-4 p-3 bg-white rounded-lg border border-blue-200">
@@ -699,10 +699,10 @@ function updateIP3M2() {
   const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
-  const revenue = num(document.getElementById('ip3-revenue').value);
-  const modal = num(document.getElementById('ip3-modal').value);
+  const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
+  const actualEnterprenuerInvolvement = num(document.getElementById('ip3-actual-enterprenuer-involvement').value);
   let roi = 0;
-  if (modal > 0) roi = ((revenue - modal) / modal) * 100;
+  if (actualEnterprenuerInvolvement > 0) roi = ((targetedEnterprenuerInvolvement - actualEnterprenuerInvolvement) / actualEnterprenuerInvolvement) * 100;
   const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
   document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
 }
@@ -796,8 +796,8 @@ async function submitForm(e) {
       ip3_total_respondent: document.getElementById('ip3-total-respondent')?.value || 0,
       ip3_positive_respondent: document.getElementById('ip3-positive-respondent')?.value || 0,
       ip3_satisfaction_percent: parseFloat(document.getElementById('ip3-satisfaction-percent')?.textContent) || 0,
-      revenue_rm: document.getElementById('ip3-revenue')?.value || 0,
-      modal_rm: document.getElementById('ip3-modal')?.value || 0,
+      targeted_enterpreneur_involvement: document.getElementById('ip3-targeted-enterpreneur-involvement')?.value || 0,
+      actual_enterpreneur_involvement: document.getElementById('ip3-actual-enterprenuer-involvement')?.value || 0,
       roi_percent: parseFloat(document.getElementById('ip3-roi-percent')?.textContent) || 0
     };
     
@@ -820,7 +820,7 @@ async function submitForm(e) {
       }
     }
     
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx9g_2TL4sKbyoiURxg5pnbI6ADFuIaznACc0JFQn5yt2xk3_EP9PgO7Mwoq5BLlQYiZA/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyZ8hcPNFH9r4UbQnvHXQTW4YjzEEadYSFGftwTfSv25g0yC0knx2HdPF1IbCp0YP6K/exec';
     fetch(WEB_APP_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -1067,8 +1067,8 @@ function setupPrint() {
         ${createQAField('Total Respondent', document.getElementById('ip3-total-respondent').value)}
         ${createQAField('Positive Respondent', document.getElementById('ip3-positive-respondent').value)}
         ${createQAField('Satisfaction Percentage', document.getElementById('ip3-satisfaction-percent').textContent)}
-        ${createQAField('Revenue (RM)', document.getElementById('ip3-revenue').value)}
-        ${createQAField('Modal (RM)', document.getElementById('ip3-modal').value)}
+        ${createQAField('Targeted Enterprenuer Involvement (RM)', document.getElementById('ip3-targeted-enterpreneur-involvement').value)}
+        ${createQAField('Actual Enterprenuer Involvement (RM)', document.getElementById('ip3-actual-enterprenuer-involvement').value)}
         ${createQAField('ROI', document.getElementById('ip3-roi-percent').textContent)}
       `;
       printContent.appendChild(section3);
@@ -1115,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (el) el.addEventListener('input', updateIP2M1_2);
     });
   
-  ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-revenue', 'ip3-modal']
+  ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-targeted-enterpreneur-involvement', 'ip3-targeted-enterpreneur-involvement']
     .forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', updateIP3M2);
