@@ -672,12 +672,10 @@ function updateIP2M1_2() {
   else if (channels === 2) mediaCoverage = 90;
   else if (channels >= 3) mediaCoverage = 100;
   document.getElementById('media-coverage').textContent = mediaCoverage + '%';
-
   const ip2totalRespondent = num(document.getElementById('ip2-total-respondent')?.value || 0);
   const ip2positiveRespondent = num(document.getElementById('ip2-positive-respondent')?.value || 0);
   const ip2satisfaction = ip2totalRespondent > 0 ? Math.min(100, (ip2positiveRespondent / ip2totalRespondent) * 100) : 0;
   document.getElementById('ip2-satisfaction-percent').textContent = ip2satisfaction.toFixed(1) + '%';
-  
   const crowdSize = num(document.getElementById('crowd-size').value);
   const targetGroup = num(document.getElementById('target-group').value);
   const surveyPercent = targetGroup > 0 ? Math.min(100, (crowdSize / targetGroup) * 100) : 0;
