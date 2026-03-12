@@ -696,7 +696,7 @@ function updateIP3M2() {
   
   const totalRespondent = num(document.getElementById('ip3-total-respondent').value);
   const positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
-  const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
+  const satisfaction = totalRespondent > 0 ? Math.min(100, (positiveRespondent / totalRespondent) * 100): 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
