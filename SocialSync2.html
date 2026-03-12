@@ -675,7 +675,7 @@ function updateIP2M1_2() {
 
   const ip2totalRespondent = num(document.getElementById('ip2-total-respondent').value);
   const ip2positiveRespondent = num(document.getElementById('ip2-positive-respondent').value);
-  const ip2satisfaction = ip2totalRespondent > 0 ? (ip2positiveRespondent / ip2totalRespondent) * 100 : 0;
+  const ip2satisfaction = ip2totalRespondent > 0 ? Math.min(100, (ip2positiveRespondent / ip2totalRespondent) * 100) : 0;
   document.getElementById('ip2-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const crowdSize = num(document.getElementById('crowd-size').value);
@@ -701,7 +701,7 @@ function updateIP3M2() {
   
   const ip3totalRespondent = num(document.getElementById('ip3-total-respondent').value);
   const ip3positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
-  const ip3satisfaction = ip3totalRespondent > 0 ? (ip3positiveRespondent / ip3totalRespondent) * 100 : 0;
+  const ip3satisfaction = ip3totalRespondent > 0 ? Math.min(100, (ip3positiveRespondent / ip3totalRespondent) * 100) : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
