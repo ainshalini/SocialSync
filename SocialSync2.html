@@ -672,6 +672,11 @@ function updateIP2M1_2() {
   else if (channels === 2) mediaCoverage = 90;
   else if (channels >= 3) mediaCoverage = 100;
   document.getElementById('media-coverage').textContent = mediaCoverage + '%';
+
+  const ip2totalRespondent = num(document.getElementById('ip2-total-respondent').value);
+  const ip2positiveRespondent = num(document.getElementById('ip2-positive-respondent').value);
+  const ip2satisfaction = ip2totalRespondent > 0 ? (ip2positiveRespondent / ip2totalRespondent) * 100 : 0;
+  document.getElementById('ip2-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const crowdSize = num(document.getElementById('crowd-size').value);
   const targetGroup = num(document.getElementById('target-group').value);
@@ -694,9 +699,9 @@ function updateIP3M2() {
   const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100) : 0;
   document.getElementById('ip3-participation-percent').textContent = ip3Participation.toFixed(1) + '%';
   
-  const totalRespondent = num(document.getElementById('ip3-total-respondent').value);
-  const positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
-  const satisfaction = totalRespondent > 0 ? (positiveRespondent / totalRespondent) * 100 : 0;
+  const ip3totalRespondent = num(document.getElementById('ip3-total-respondent').value);
+  const ip3positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
+  const ip3satisfaction = ip3totalRespondent > 0 ? (ip3positiveRespondent / ip3totalRespondent) * 100 : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
