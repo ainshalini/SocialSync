@@ -684,10 +684,8 @@ function updateIP2M1_2() {
   const formatted = surveyPercent.toFixed(1);
   document.getElementById('survey-percent-display').textContent = formatted + '%';
   document.getElementById('participant-percent').textContent = formatted + '%';
-  
-  const totalScore = (mediaCoverage + surveyPercent + ip2satisfaction) / 3;
-  document.getElementById('total-ip2m1-2').textContent = totalScore.toFixed(1);
-}
+  const totalScore = (mediaCoverage + surveyPercent + surveyPercent) / 3;
+  document.getElementById('total-ip2m1-2').textContent = totalScore.toFixed(1);}
 
 function updateIP3M2() {
   const mediaList = document.getElementById('ip3-media-list').value.trim();
