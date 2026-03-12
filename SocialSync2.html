@@ -691,12 +691,12 @@ function updateIP3M2() {
   
   const ip3Actual = num(document.getElementById('ip3-actual-attendance').value);
   const ip3Target = num(document.getElementById('ip3-target-attendance').value);
-  const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100) : 0;
+  const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100): 0;
   document.getElementById('ip3-participation-percent').textContent = ip3Participation.toFixed(1) + '%';
   
   const totalRespondent = num(document.getElementById('ip3-total-respondent').value);
   const positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
-  const satisfaction = totalRespondent > 0 ? Math.min(100, (positiveRespondent / totalRespondent) * 100): 0;
+  const satisfaction = positiveRespondent > 0 ? Math.min(100, (positiveRespondent / totalRespondent) * 100): 0;
   document.getElementById('ip3-satisfaction-percent').textContent = satisfaction.toFixed(1) + '%';
   
   const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
