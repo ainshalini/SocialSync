@@ -704,14 +704,13 @@ function updateIP3M2() {
   const ip3satisfaction = ip3totalRespondent > 0 ? Math.min(100, (ip3positiveRespondent / ip3totalRespondent) * 100) : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = ip3satisfaction.toFixed(1) + '%';
   
-  const revenue = num(document.getElementById('ip3-revenue').value);
-  const modal = num(document.getElementById('ip3-modal').value);
+  const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
+  const actualEnterprenuerInvolvement = num(document.getElementById('ip3-actual-enterprenuer-involvement').value);
   let roi = 0;
-  if (modal > 0) roi = ((revenue - modal) / modal) * 100;
+  if (modal > 0) roi = ((targetedEnterprenuerInvolvement - actualEnterprenuerInvolvement) / actualEnterprenuerInvolvement) * 100;
   const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
   document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
 }
-
 // Base64 conversion
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
@@ -769,7 +768,7 @@ async function submitForm(e) {
       .filter(value => value !== '');
     const vipGuestText = vipGuestValues.join(', ');
 
-    const organizerInputs = document.querySelectorAll('input[name="vip_guest[]"]');
+    const organizerInputs = document.querySelectorAll('input[name="orgnizer[]"]');
     const organizerValues = Array.from(organizerInputs)
       .map(input => input.value.trim())
       .filter(value => value !== '');
