@@ -886,20 +886,33 @@ function addOrganizer() {
 function setupSectionSelection() {
   const sectionBtns = document.querySelectorAll('.section-btn');
   const form = document.getElementById('main-form');
+  
+  // Fix: Check if elements exist before accessing them
   const sections = {
     'ip2m1-1': document.getElementById('section-ip2m1-1'),
     'ip2m1-2': document.getElementById('section-ip2m1-2'),
     'ip3m2': document.getElementById('section-ip3m2')
   };
   
-  sectionBtns.forEach(btn => {
+  sections.forEach(btn => {
     btn.addEventListener('click', () => {
-      sectionBtns.forEach(b => b.classList.remove('active'));
+      // Remove active state from all buttons
+      sectionBtns.forEach(b => {
+        b.classList.remove('border-cyan-400', 'bg-cyan-50');
+        b.classList.remove('active'); // Remove both styles
+      });
+      
+      // Add active state to clicked button
+      btn.classList.add('border-cyan-400', 'bg-cyan-50');
       btn.classList.add('active');
+      
+      // Show form and selected section
       form.classList.remove('hidden');
-      Object.values(sections).forEach(section => section.classList.add('hidden'));
-      const sectionId = btn.dataset.section;
-      if (sections[sectionId]) {
+      Object.values(sections).forEach(section => {
+        if (section) section.classList.add('hidden');
+      });
+      
+      const sectionId = btn.dataset.section if (sections[sectionId] && sections[sectionId].classList) {
         sections[sectionId].classList.remove('hidden');
       }
     });
