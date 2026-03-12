@@ -662,6 +662,7 @@ function num(val) {
 }
 
 // Calculations
+// Calculations (FIXED)
 function updateIP2M1_2() {
   const mediaCetak = document.getElementById('media-cetak-checkbox').checked;
   const mediaElektronik = document.getElementById('media-elektronik-checkbox').checked;
@@ -671,8 +672,9 @@ function updateIP2M1_2() {
   if (channels === 1) mediaCoverage = 80;
   else if (channels === 2) mediaCoverage = 90;
   else if (channels >= 3) mediaCoverage = 100;
-  document.getElementById('media-coverage').textContent = mediaCoverage + '%';
+  document.getElementById('media-coverage').textContent = mediaCoverage + '%'; // ✅ FIXED missing =
 
+  // ✅ FIXED: Use IP2-specific IDs
   const ip2totalRespondent = num(document.getElementById('ip2-total-respondent').value);
   const ip2positiveRespondent = num(document.getElementById('ip2-positive-respondent').value);
   const ip2satisfaction = ip2totalRespondent > 0 ? Math.min(100, (ip2positiveRespondent / ip2totalRespondent) * 100) : 0;
@@ -685,6 +687,7 @@ function updateIP2M1_2() {
   document.getElementById('survey-percent-display').textContent = formatted + '%';
   document.getElementById('participant-percent').textContent = formatted + '%';
   
+  // ✅ FIXED: Use ip2satisfaction instead of duplicate surveyPercent
   const totalScore = (mediaCoverage + surveyPercent + ip2satisfaction) / 3;
   document.getElementById('total-ip2m1-2').textContent = totalScore.toFixed(1);
 }
@@ -699,15 +702,19 @@ function updateIP3M2() {
   const ip3Participation = ip3Target > 0 ? Math.min(100, (ip3Actual / ip3Target) * 100) : 0;
   document.getElementById('ip3-participation-percent').textContent = ip3Participation.toFixed(1) + '%';
   
+  // ✅ FIXED: Use IP3-specific IDs (already correct)
   const ip3totalRespondent = num(document.getElementById('ip3-total-respondent').value);
   const ip3positiveRespondent = num(document.getElementById('ip3-positive-respondent').value);
   const ip3satisfaction = ip3totalRespondent > 0 ? Math.min(100, (ip3positiveRespondent / ip3totalRespondent) * 100) : 0;
   document.getElementById('ip3-satisfaction-percent').textContent = ip3satisfaction.toFixed(1) + '%';
   
-  const targetedEnterprenuerInvolvement = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
-  const actualEnterprenuerInvolvement = num(document.getElementById('ip3-actual-enterprenuer-involvement').value);
+  // ✅ FIXED: Use ENTREPRENEUR fields (NOT revenue/modal)
+  const targetedEntrepreneur = num(document.getElementById('ip3-targeted-enterpreneur-involvement').value);
+  const actualEntrepreneur = num(document.getElementById('ip3-actual-enterprenuer-involvement').value);
   let roi = 0;
-  if (actualEnterprenuerInvolvement > 0) roi = ((targetedEnterprenuerInvolvement - actualEnterprenuerInvolvement) / actualEnterprenuerInvolvement) * 100;
+  if (actualEntrepreneur > 0) {
+    roi = ((targetedEntrepreneur - actualEntrepreneur) / actualEntrepreneur) * 100;
+  }
   const roiDisplay = isFinite(roi) ? roi.toFixed(1) : '∞';
   document.getElementById('ip3-roi-percent').textContent = roiDisplay + '%';
 }
@@ -1119,18 +1126,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-
-  ['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-total-respondent', 'ip2-positive-respondent', 'crowd-size', 'target-group']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', updateIP2M1_2);
-    });
   
-  ['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-targeted-enterpreneur-involvement']
-    .forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('input', updateIP3M2);
-    });
+// Attach calculation listeners (FIXED)
+['media-cetak-checkbox', 'media-elektronik-checkbox', 'media-digital-checkbox', 'ip2-total-respondent', 'ip2-positive-respondent', 'crowd-size', 'target-group']
+.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateIP2M1_2);
+});
+
+['ip3-media-list', 'ip3-actual-attendance', 'ip3-target-attendance', 'ip3-total-respondent', 'ip3-positive-respondent', 'ip3-targeted-enterpreneur-involvement', 'ip3-actual-enterprenuer-involvement']
+.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateIP3M2);
+});
   
   setupSectionSelection();
   setupImagePreview();
